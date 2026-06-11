@@ -6,7 +6,7 @@ async function seed() {
   const pool = await getPool();
 
   const [existing] = await pool.execute(
-    'SELECT id FROM users WHERE email = ?', ['michele@etis.fr']
+    'SELECT id FROM users WHERE email = ?', ['michele@gmail.com']
   );
 
   if (existing.length > 0) {
@@ -14,15 +14,15 @@ async function seed() {
     process.exit(0);
   }
 
-  const hashed = bcrypt.hashSync('changeme123', 10);
+  const hashed = bcrypt.hashSync(process.env.ADMIN_PASSWORD, 10);
   await pool.execute(
     'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
-    ['Michele Linardi', 'michele@etis.fr', hashed, 'admin']
+    ['Michele Linardi', 'michele@gmail.com', hashed, 'admin']
   );
 
   console.log('Compte admin créé :');
-  console.log('  Email    : michele@etis.fr');
-  console.log('  Password : changeme123');
+  console.log('  Email    : michele@gmail.com');
+  console.log('  Password : ' + process.env.ADMIN_PASSWORD);
   console.log('  → Pensez à changer le mot de passe !');
   process.exit(0);
 }
