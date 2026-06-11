@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDEM — Comptes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-body">
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        EDEM
+        <span>Espace équipe</span>
+      </div>
+      <a href="/admin/dashboard.html" class="sidebar-link">Mes posts</a>
+      <a href="/admin/new-post.html" class="sidebar-link">Nouveau post</a>
+      <a href="/admin/users.html" class="sidebar-link active">Gérer les comptes</a>
+      <div class="sidebar-bottom">
+        <div style="font-size:13px;color:rgba(255,255,255,0.4);padding:0 12px;margin-bottom:10px" id="sidebar-user"></div>
+        <a href="/" class="sidebar-link">← Site public</a>
+        <button class="sidebar-link" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;color:rgba(255,255,255,0.4)" onclick="logout()">Déconnexion</button>
+      </div>
+    </aside>
+
+    <main class="admin-content">
+      <div class="admin-header">
+        <h1 class="admin-title">Comptes</h1>
+        <button class="btn btn-primary" onclick="toggleForm()">+ Ajouter un compte</button>
+      </div>
+
+      <div id="add-form" style="display:none;background:#fff;border:1px solid var(--border);border-radius:8px;padding:24px;max-width:480px;margin-bottom:24px">
+        <h2 style="font-family:var(--font-display);font-size:16px;margin-bottom:20px">Nouveau compte</h2>
+        <div class="form-group">
+          <label class="form-label">Nom</label>
+          <input class="form-input" type="text" id="new-name" placeholder="Prénom Nom">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" id="new-email" placeholder="prenom@etis.fr">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mot de passe temporaire</label>
+          <input class="form-input" type="text" id="new-password" placeholder="À communiquer à la personne">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Rôle</label>
+          <select class="form-input" id="new-role">
+            <option value="author">Auteur</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="btn btn-primary" onclick="createUser()">Créer</button>
+          <button class="btn btn-ghost" onclick="toggleForm()">Annuler</button>
+          <span id="user-status" style="font-size:13px;color:var(--text-muted)"></span>
+        </div>
+      </div>
+
+      <div id="users-list">
+        <div class="loading">Chargement…</div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const token = localStorage.getItem('edem_token');
+    const user = JSON.parse(localStorage.getItem('edem_user') || 'null');
+
+    if (!token || !user || user.role !== 'admin') {
+      window.location.href = '/admin/dashboard.html';
+    }
+
+    document.getElementById('sidebar-user').textContent = user?.name || '';
+
+    function toggleForm() {
+      const form = document.getElementById('add-form');
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+
+    async function loadUsers() {
+      const list = document.getElementById('users-list');
+      try {
+        const res = await fetch('/api/users', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const users = await res.json();
+
+        list.innerHTML = users.map(u => `
+          <div class="admin-post-item">
+            <div class="admin-post-info">
+              <div class="admin-post-title">${escapeHtml(u.name)}</div>
+              <div class="admin-post-meta">${u.email} · ${u.role === 'admin' ? 'Admin' : 'Auteur'}</div>
+            </div>
+            <div class="admin-post-actions">
+              ${u.id !== user.id ? `
+                <button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id}, this)">Supprimer</button>
+              ` : '<span style="font-size:12px;color:var(--text-muted)">Vous</span>'}
+            </div>
+          </div>
+        `).join('');
+      } catch {
+        list.innerHTML = `<div class="empty error">Impossible de charger les comptes.</div>`;
+      }
+    }
+
+    async function createUser() {
+      const name = document.getElementById('new-name').value.trim();
+      const email = document.getElementById('new-email').value.trim();
+      const password = document.getElementById('new-password').value;
+      const role = document.getElementById('new-role').value;
+      const status = document.getElementById('user-status');
+
+      if (!name || !email || !password) {
+        status.textContent = 'Tous les champs sont requis.';
+        status.style.color = '#c0392b';
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ name, email, password, role })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          toggleForm();
+          document.getElementById('new-name').value = '';
+          document.getElementById('new-email').value = '';
+          document.getElementById('new-password').value = '';
+          loadUsers();
+        } else {
+          status.textContent = data.error || 'Erreur.';
+          status.style.color = '#c0392b';
+        }
+      } catch {
+        status.textContent = 'Erreur réseau.';
+        status.style.color = '#c0392b';
+      }
+    }
+
+    async function deleteUser(id, btn) {
+      if (!confirm('Supprimer ce compte ? Ses posts resteront en ligne.')) return;
+      btn.disabled = true;
+      try {
+        const res = await fetch(`/api/users/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) loadUsers();
+        else btn.disabled = false;
+      } catch {
+        btn.disabled = false;
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('edem_token');
+      localStorage.removeItem('edem_user');
+      window.location.href = '/admin/login.html';
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    loadUsers();
+  </script>
+</body>
+</html>

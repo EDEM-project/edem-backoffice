@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDEM — Actualités</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-mark">EDEM</span>
+          <span class="logo-sub">Agritech · Satellite · IA</span>
+        </div>
+        <nav>
+          <a href="/" class="nav-link active">Actualités</a>
+          <a href="/admin/login.html" class="nav-link nav-admin">Espace équipe →</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="hero-eyebrow">Projet ANR</p>
+        <h1 class="hero-title">Expliquer les modèles de deep learning<br>sur les séries temporelles satellitaires</h1>
+        <p class="hero-desc">Recherche menée au laboratoire ETIS — CY Cergy Paris Université / ENSEA / CNRS</p>
+      </div>
+    </section>
+
+    <section class="posts-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Actualités</h2>
+          <span id="posts-count" class="posts-count"></span>
+        </div>
+
+        <div id="posts-list" class="posts-grid">
+          <div class="loading">Chargement…</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Projet EDEM · ETIS Laboratory · CY Cergy Paris Université</p>
+    </div>
+  </footer>
+
+  <script>
+    async function loadPosts() {
+      const list = document.getElementById('posts-list');
+      const count = document.getElementById('posts-count');
+
+      try {
+        const res = await fetch('/api/posts');
+        const posts = await res.json();
+
+        count.textContent = posts.length === 0 ? '' : `${posts.length} publication${posts.length > 1 ? 's' : ''}`;
+
+        if (posts.length === 0) {
+          list.innerHTML = `<div class="empty">Aucune actualité pour le moment.</div>`;
+          return;
+        }
+
+        list.innerHTML = posts.map(post => `
+          <article class="post-card" onclick="openPost(${post.id})">
+            <div class="post-meta">
+              <span class="post-author">${post.author_name}</span>
+              <span class="post-date">${formatDate(post.created_at)}</span>
+            </div>
+            <h3 class="post-title">${escapeHtml(post.title)}</h3>
+            <p class="post-excerpt">${escapeHtml(post.content).substring(0, 160)}${post.content.length > 160 ? '…' : ''}</p>
+            <span class="post-read">Lire →</span>
+          </article>
+        `).join('');
+      } catch (err) {
+        list.innerHTML = `<div class="empty error">Impossible de charger les actualités.</div>`;
+      }
+    }
+
+    function openPost(id) {
+      window.location.href = `/post.html?id=${id}`;
+    }
+
+    function formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString('fr-FR', {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    loadPosts();
+  </script>
+</body>
+</html>

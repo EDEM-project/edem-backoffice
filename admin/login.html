@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDEM — Connexion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-body">
+  <div class="login-page">
+    <div class="login-card">
+      <div class="login-logo">EDEM</div>
+      <p class="login-sub">Espace équipe — connexion requise</p>
+
+      <div class="form-group">
+        <label class="form-label" for="email">Adresse email</label>
+        <input class="form-input" type="email" id="email" placeholder="prenom@etis.fr" autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Mot de passe</label>
+        <input class="form-input" type="password" id="password" autocomplete="current-password">
+      </div>
+
+      <button class="btn btn-primary" style="width:100%" onclick="login()">Se connecter</button>
+      <p class="form-error" id="error-msg">Identifiants incorrects.</p>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem('edem_token')) {
+      window.location.href = '/admin/dashboard.html';
+    }
+
+    async function login() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('error-msg');
+
+      errorMsg.style.display = 'none';
+
+      if (!email || !password) {
+        errorMsg.textContent = 'Veuillez remplir tous les champs.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          errorMsg.textContent = data.error || 'Identifiants incorrects.';
+          errorMsg.style.display = 'block';
+          return;
+        }
+
+        localStorage.setItem('edem_token', data.token);
+        localStorage.setItem('edem_user', JSON.stringify(data.user));
+        window.location.href = '/admin/dashboard.html';
+      } catch {
+        errorMsg.textContent = 'Erreur de connexion au serveur.';
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') login();
+    });
+  </script>
+</body>
+</html>

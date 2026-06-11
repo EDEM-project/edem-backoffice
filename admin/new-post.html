@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDEM — Éditeur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-body">
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        EDEM
+        <span>Espace équipe</span>
+      </div>
+      <a href="/admin/dashboard.html" class="sidebar-link">Mes posts</a>
+      <a href="/admin/new-post.html" class="sidebar-link active">Nouveau post</a>
+      <div id="admin-links"></div>
+      <div class="sidebar-bottom">
+        <div style="font-size:13px;color:rgba(255,255,255,0.4);padding:0 12px;margin-bottom:10px" id="sidebar-user"></div>
+        <a href="/" class="sidebar-link">← Site public</a>
+        <button class="sidebar-link" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;color:rgba(255,255,255,0.4)" onclick="logout()">Déconnexion</button>
+      </div>
+    </aside>
+
+    <main class="admin-content">
+      <div class="admin-header">
+        <h1 class="admin-title" id="page-title">Nouveau post</h1>
+        <a href="/admin/dashboard.html" class="btn btn-ghost">Annuler</a>
+      </div>
+
+      <div style="max-width:680px">
+        <div class="form-group">
+          <label class="form-label" for="title">Titre</label>
+          <input class="form-input" type="text" id="title" placeholder="Titre de l'actualité">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="content">Contenu</label>
+          <textarea class="form-textarea" id="content" placeholder="Rédigez votre actualité ici…" style="min-height:320px"></textarea>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center">
+          <button class="btn btn-primary" id="submit-btn" onclick="savePost()">Publier</button>
+          <span id="save-status" style="font-size:13px;color:var(--text-muted)"></span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const token = localStorage.getItem('edem_token');
+    const user = JSON.parse(localStorage.getItem('edem_user') || 'null');
+
+    if (!token || !user) window.location.href = '/admin/login.html';
+
+    document.getElementById('sidebar-user').textContent = user?.name || '';
+
+    if (user?.role === 'admin') {
+      document.getElementById('admin-links').innerHTML = `
+        <a href="/admin/users.html" class="sidebar-link">Gérer les comptes</a>
+      `;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const editId = params.get('id');
+
+    if (editId) {
+      document.getElementById('page-title').textContent = 'Modifier le post';
+      document.getElementById('submit-btn').textContent = 'Enregistrer';
+      loadPost(editId);
+    }
+
+    async function loadPost(id) {
+      try {
+        const res = await fetch(`/api/posts/${id}`);
+        const post = await res.json();
+        document.getElementById('title').value = post.title;
+        document.getElementById('content').value = post.content;
+      } catch {
+        alert('Impossible de charger ce post.');
+      }
+    }
+
+    async function savePost() {
+      const title = document.getElementById('title').value.trim();
+      const content = document.getElementById('content').value.trim();
+      const btn = document.getElementById('submit-btn');
+      const status = document.getElementById('save-status');
+
+      if (!title || !content) {
+        status.textContent = 'Le titre et le contenu sont requis.';
+        status.style.color = '#c0392b';
+        return;
+      }
+
+      btn.disabled = true;
+      status.textContent = 'Enregistrement…';
+      status.style.color = 'var(--text-muted)';
+
+      try {
+        const url = editId ? `/api/posts/${editId}` : '/api/posts';
+        const method = editId ? 'PUT' : 'POST';
+
+        const res = await fetch(url, {
+          method,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ title, content })
+        });
+
+        if (res.ok) {
+          window.location.href = '/admin/dashboard.html';
+        } else {
+          const data = await res.json();
+          status.textContent = data.error || 'Erreur lors de la sauvegarde.';
+          status.style.color = '#c0392b';
+          btn.disabled = false;
+        }
+      } catch {
+        status.textContent = 'Erreur réseau.';
+        status.style.color = '#c0392b';
+        btn.disabled = false;
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('edem_token');
+      localStorage.removeItem('edem_user');
+      window.location.href = '/admin/login.html';
+    }
+  </script>
+</body>
+</html>
