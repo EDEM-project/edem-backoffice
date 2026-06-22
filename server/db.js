@@ -33,10 +33,17 @@ async function initTables() {
     `);
 
     await conn.execute(`
-      CREATE TABLE IF NOT EXISTS posts (
+      CREATE TABLE IF NOT EXISTS publications (
         id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
-        content TEXT NOT NULL,
+        summary TEXT,
+        explanation TEXT,
+        code_snippet TEXT,
+        code_language VARCHAR(50) DEFAULT 'Python',
+        tags VARCHAR(500),
+        type ENUM('recherche', 'rapport', 'article') DEFAULT 'recherche',
+        pdf_url VARCHAR(500),
+        image_url VARCHAR(500),
         author_id INT NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

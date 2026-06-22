@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+  <title>EDEM – Publications</title>
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    .card-hover { transition: box-shadow 0.2s, transform 0.2s; }
+    .card-hover:hover { box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15); transform: translateY(-1px); }
+    .filter-btn.active { background: #dcfce7; color: #1c1917; font-weight: 500; }
+    .filter-btn { transition: background 0.15s, color 0.15s; }
+  </style>
+</head>
+<body class="bg-stone-100 min-h-screen flex flex-col">
+
+  <header id="site-header" role="banner" class="sticky top-0 z-[100] bg-[#6ee7b7]/80 border-b border-black/5 backdrop-blur-md transition-shadow duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]">
+    <nav aria-label="Navigation principale" class="max-w-screen-xl mx-auto px-10 h-20 flex items-center justify-between gap-8">
+      <a href="index.html" class="flex items-center gap-[0.6rem] shrink-0 no-underline" aria-label="EDEM – Accueil">
+        <span class="font-sans font-extrabold text-xl text-stone-900 tracking-[-0.02em]">EDEM</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-1 list-none" id="nav-links" role="list">
+        <li><a href="index.html#projet" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5">Le projet</a></li>
+        <li><a href="publications.html" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5">Publications</a></li>
+        <li><a href="equipe.html" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5">Équipe</a></li>
+        <li><a href="contact.html" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5">Contact</a></li>
+      </ul>
+      <div class="flex items-center gap-4 shrink-0">
+        <a href="https://anr.fr/Projet-ANR-24-CE23-6449" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-[0.4rem] px-4 py-[0.55rem] bg-teal-700 text-white text-[0.8125rem] font-semibold rounded-[7px] no-underline transition-all duration-300 hover:bg-teal-800 hover:-translate-y-px">
+          Fiche ANR
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="flex items-center gap-1 text-[0.75rem] font-medium">
+          <button class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded-[4px] text-stone-900 font-bold text-[0.75rem]">FR</button>
+          <span class="text-black/30">|</span>
+          <button class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded-[4px] text-black/45 font-normal text-[0.75rem]">EN</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-screen-xl mx-auto px-8 pt-10 pb-20" id="publications">
+
+    <div class="flex flex-col gap-4 mb-8">
+      <div class="flex justify-end">
+        <div class="relative w-72">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+          </svg>
+          <input id="search-input" type="text" placeholder="Rechercher…"
+            class="w-full pl-9 pr-4 h-10 bg-white rounded-lg border border-stone-300 text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition"/>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-4" id="filter-btns">
+          <button class="filter-btn active px-4 h-7 bg-green-100 rounded-lg text-xs" data-type="all">toutes</button>
+          <button class="filter-btn px-2 h-7 text-xs text-stone-500 hover:text-stone-800" data-type="recherche">recherches</button>
+          <button class="filter-btn px-2 h-7 text-xs text-stone-500 hover:text-stone-800" data-type="rapport">rapports</button>
+          <button class="filter-btn px-2 h-7 text-xs text-stone-500 hover:text-stone-800" data-type="article">articles</button>
+        </div>
+      </div>
+      <hr class="border-stone-200"/>
+    </div>
+
+    <!-- Liste dynamique -->
+    <div id="publications-list" class="flex flex-col gap-4">
+      <div class="text-stone-400 text-sm py-8">Chargement…</div>
+    </div>
+  </main>
+
+  <footer class="bg-teal-600 mt-auto">
+    <div class="max-w-screen-xl mx-auto px-8 py-12 grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+      <div class="flex flex-col gap-6">
+        <span class="text-white text-2xl font-bold tracking-tight">EDEM</span>
+      </div>
+      <nav class="flex flex-col gap-3 pt-1">
+        <a href="#" class="text-white/80 text-sm font-medium hover:text-white transition-colors">Mentions légales</a>
+        <a href="#" class="text-white/80 text-sm font-medium hover:text-white transition-colors">À propos</a>
+        <a href="equipe.html" class="text-white/80 text-sm font-medium hover:text-white transition-colors">Équipe</a>
+      </nav>
+      <div class="flex flex-col gap-4">
+        <h3 class="text-white text-lg font-semibold">Rester informé</h3>
+        <div class="flex gap-2">
+          <input type="email" placeholder="Votre email" class="flex-1 min-w-0 h-11 px-4 bg-transparent border border-white/50 rounded text-white placeholder-white/50 text-sm focus:outline-none focus:border-white transition-colors"/>
+          <button class="px-5 h-11 bg-white rounded text-teal-700 text-sm font-semibold hover:bg-green-50 transition-colors whitespace-nowrap">Envoyer</button>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/20">
+      <div class="max-w-screen-xl mx-auto px-8 py-4">
+        <p class="text-white/40 text-xs">© 2026 EDEM – Projet ANR. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let allPublications = [];
+    let activeType = 'all';
+
+    async function loadPublications() {
+      const list = document.getElementById('publications-list');
+      try {
+        const res = await fetch('/api/publications');
+        allPublications = await res.json();
+        renderPublications();
+      } catch {
+        list.innerHTML = `<div class="text-stone-400 text-sm py-8">Impossible de charger les publications.</div>`;
+      }
+    }
+
+    function renderPublications() {
+      const list = document.getElementById('publications-list');
+      const search = document.getElementById('search-input').value.toLowerCase();
+
+      const filtered = allPublications.filter(pub => {
+        const matchType = activeType === 'all' || pub.type === activeType;
+        const matchSearch = !search ||
+          pub.title.toLowerCase().includes(search) ||
+          pub.summary.toLowerCase().includes(search) ||
+          pub.author_name.toLowerCase().includes(search) ||
+          pub.tags.some(t => t.toLowerCase().includes(search));
+        return matchType && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="text-stone-400 text-sm py-8">Aucune publication trouvée.</div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(pub => `
+        <article class="w-full px-5 py-4 bg-white rounded-lg border border-teal-600 flex flex-col gap-4 card-hover cursor-pointer"
+                 onclick="window.location.href='publication.html?id=${pub.id}'">
+          <div class="flex flex-col gap-1">
+            <h2 class="text-lg font-semibold text-stone-900">${escapeHtml(pub.title)}</h2>
+            <p class="text-xs text-stone-400">le ${formatDate(pub.created_at)} · par <span class="font-medium text-stone-600">${escapeHtml(pub.author_name)}</span></p>
+            <p class="text-sm text-stone-600 font-light leading-relaxed mt-1">${escapeHtml(pub.summary).substring(0, 180)}${pub.summary.length > 180 ? '…' : ''}</p>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2 flex-wrap">
+              ${pub.tags.map(t => `<span class="px-3 py-1 bg-green-100 rounded-full text-xs text-stone-700">${escapeHtml(t)}</span>`).join('')}
+            </div>
+            <span class="text-sm text-teal-600 hover:text-teal-700 font-medium whitespace-nowrap">Consulter →</span>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // Filtres
+    document.getElementById('filter-btns').addEventListener('click', e => {
+      const btn = e.target.closest('[data-type]');
+      if (!btn) return;
+      activeType = btn.dataset.type;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'bg-green-100'));
+      btn.classList.add('active', 'bg-green-100');
+      renderPublications();
+    });
+
+    // Recherche
+    document.getElementById('search-input').addEventListener('input', renderPublications);
+
+    function formatDate(str) {
+      return new Date(str).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    loadPublications();
+  </script>
+</body>
+</html>
