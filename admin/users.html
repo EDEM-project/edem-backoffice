@@ -5,18 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EDEM — Comptes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Syne:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body class="admin-body">
   <div class="admin-layout">
     <aside class="sidebar">
-      <div class="sidebar-logo">
-        EDEM
-        <span>Espace équipe</span>
-      </div>
-      <a href="/admin/dashboard.html" class="sidebar-link">Mes posts</a>
-      <a href="/admin/new-post.html" class="sidebar-link">Nouveau post</a>
+      <div class="sidebar-logo">EDEM <span>Espace équipe</span></div>
+      <a href="/admin/dashboard.html" class="sidebar-link">Publications</a>
+      <a href="/admin/new-publication.html" class="sidebar-link">Nouvelle publication</a>
       <a href="/admin/users.html" class="sidebar-link active">Gérer les comptes</a>
       <div class="sidebar-bottom">
         <div style="font-size:13px;color:rgba(255,255,255,0.4);padding:0 12px;margin-bottom:10px" id="sidebar-user"></div>
@@ -27,151 +24,238 @@
 
     <main class="admin-content">
       <div class="admin-header">
-        <h1 class="admin-title">Comptes</h1>
-        <button class="btn btn-primary" onclick="toggleForm()">+ Ajouter un compte</button>
+        <h1 class="admin-title">Membres de l'équipe</h1>
+        <button class="btn btn-primary" onclick="toggleForm()">+ Ajouter un membre</button>
       </div>
 
-      <div id="add-form" style="display:none;background:#fff;border:1px solid var(--border);border-radius:8px;padding:24px;max-width:480px;margin-bottom:24px">
-        <h2 style="font-family:var(--font-display);font-size:16px;margin-bottom:20px">Nouveau compte</h2>
-        <div class="form-group">
-          <label class="form-label">Nom</label>
-          <input class="form-input" type="text" id="new-name" placeholder="Prénom Nom">
+      <!-- Formulaire d'ajout -->
+      <div id="add-form" style="display:none;background:#fff;border:1px solid var(--border);border-radius:8px;padding:24px;max-width:600px;margin-bottom:24px">
+        <h2 style="font-family:var(--font-display);font-size:16px;margin-bottom:20px" id="form-title">Nouveau membre</h2>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="form-group">
+            <label class="form-label">Nom complet *</label>
+            <input class="form-input" type="text" id="f-name" placeholder="Prénom Nom">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email (connexion) *</label>
+            <input class="form-input" type="email" id="f-email" placeholder="prenom@etis.fr">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mot de passe temporaire *</label>
+            <input class="form-input" type="text" id="f-password" placeholder="À communiquer">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Rôle</label>
+            <select class="form-input" id="f-role">
+              <option value="author">Auteur</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Titre / Poste</label>
+            <input class="form-input" type="text" id="f-titre" placeholder="Maître de conférences, Doctorant…">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Institution</label>
+            <input class="form-input" type="text" id="f-institution" placeholder="CYU, CNRS, Inria…">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email public</label>
+            <input class="form-input" type="email" id="f-email-public" placeholder="Affiché sur le site">
+          </div>
+          <div class="form-group">
+            <label class="form-label">LinkedIn</label>
+            <input class="form-input" type="text" id="f-linkedin" placeholder="https://linkedin.com/in/…">
+          </div>
         </div>
+
         <div class="form-group">
-          <label class="form-label">Email</label>
-          <input class="form-input" type="email" id="new-email" placeholder="prenom@etis.fr">
+          <label class="form-label">Compétences <span style="font-weight:400;color:var(--text-muted)">(séparées par des virgules)</span></label>
+          <input class="form-input" type="text" id="f-competences" placeholder="Deep Learning, xAI, Python…">
         </div>
+
         <div class="form-group">
-          <label class="form-label">Mot de passe temporaire</label>
-          <input class="form-input" type="text" id="new-password" placeholder="À communiquer à la personne">
+          <label class="form-label">Présentation / Bio</label>
+          <textarea class="form-textarea" id="f-bio" placeholder="Quelques lignes de présentation…" style="min-height:100px"></textarea>
         </div>
+
         <div class="form-group">
-          <label class="form-label">Rôle</label>
-          <select class="form-input" id="new-role">
-            <option value="author">Auteur</option>
-            <option value="admin">Admin</option>
-          </select>
+          <label class="form-label">Photo de profil</label>
+          <input type="file" id="f-photo" accept="image/*" style="font-size:14px;color:var(--text-muted)">
+          <div id="f-photo-status" style="font-size:13px;color:var(--text-muted);margin-top:6px"></div>
+          <input type="hidden" id="f-photo-url">
         </div>
-        <div style="display:flex;gap:10px;align-items:center">
-          <button class="btn btn-primary" onclick="createUser()">Créer</button>
-          <button class="btn btn-ghost" onclick="toggleForm()">Annuler</button>
-          <span id="user-status" style="font-size:13px;color:var(--text-muted)"></span>
+
+        <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+          <button class="btn btn-primary" id="form-submit-btn" onclick="submitForm()">Créer</button>
+          <button class="btn btn-ghost" onclick="resetForm()">Annuler</button>
+          <span id="form-status" style="font-size:13px;color:var(--text-muted)"></span>
         </div>
       </div>
 
-      <div id="users-list">
-        <div class="loading">Chargement…</div>
-      </div>
+      <div id="users-list"><div class="loading">Chargement…</div></div>
     </main>
   </div>
 
   <script>
     const token = localStorage.getItem('edem_token');
     const user = JSON.parse(localStorage.getItem('edem_user') || 'null');
-
-    if (!token || !user || user.role !== 'admin') {
-      window.location.href = '/admin/dashboard.html';
-    }
-
+    if (!token || !user || user.role !== 'admin') window.location.href = '/admin/dashboard.html';
     document.getElementById('sidebar-user').textContent = user?.name || '';
 
+    let editingId = null;
+
     function toggleForm() {
-      const form = document.getElementById('add-form');
-      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+      const f = document.getElementById('add-form');
+      f.style.display = f.style.display === 'none' ? 'block' : 'none';
     }
 
-    async function loadUsers() {
-      const list = document.getElementById('users-list');
+    function resetForm() {
+      editingId = null;
+      document.getElementById('form-title').textContent = 'Nouveau membre';
+      document.getElementById('form-submit-btn').textContent = 'Créer';
+      ['f-name','f-email','f-password','f-titre','f-institution','f-email-public','f-linkedin','f-competences','f-bio','f-photo-url'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      document.getElementById('f-role').value = 'author';
+      document.getElementById('add-form').style.display = 'none';
+    }
+
+    function editUser(u) {
+      editingId = u.id;
+      document.getElementById('form-title').textContent = 'Modifier le membre';
+      document.getElementById('form-submit-btn').textContent = 'Enregistrer';
+      document.getElementById('f-name').value = u.name || '';
+      document.getElementById('f-email').value = u.email || '';
+      document.getElementById('f-password').value = '';
+      document.getElementById('f-role').value = u.role || 'author';
+      document.getElementById('f-titre').value = u.titre || '';
+      document.getElementById('f-institution').value = u.institution || '';
+      document.getElementById('f-email-public').value = u.email_public || '';
+      document.getElementById('f-linkedin').value = u.linkedin_url || '';
+      document.getElementById('f-competences').value = Array.isArray(u.competences) ? u.competences.join(', ') : '';
+      document.getElementById('f-bio').value = u.bio || '';
+      document.getElementById('f-photo-url').value = u.photo_url || '';
+      document.getElementById('add-form').style.display = 'block';
+      document.getElementById('add-form').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Upload photo automatique
+    document.getElementById('f-photo').addEventListener('change', async function() {
+      const file = this.files[0];
+      if (!file) return;
+      const status = document.getElementById('f-photo-status');
+      status.textContent = 'Upload en cours…';
+      const form = new FormData();
+      form.append('file', file);
       try {
-        const res = await fetch('/api/users', {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const users = await res.json();
-
-        list.innerHTML = users.map(u => `
-          <div class="admin-post-item">
-            <div class="admin-post-info">
-              <div class="admin-post-title">${escapeHtml(u.name)}</div>
-              <div class="admin-post-meta">${u.email} · ${u.role === 'admin' ? 'Admin' : 'Auteur'}</div>
-            </div>
-            <div class="admin-post-actions">
-              ${u.id !== user.id ? `
-                <button class="btn btn-danger btn-sm" onclick="deleteUser(${u.id}, this)">Supprimer</button>
-              ` : '<span style="font-size:12px;color:var(--text-muted)">Vous</span>'}
-            </div>
-          </div>
-        `).join('');
+        const res = await fetch('/api/uploads', { method: 'POST', headers: { 'Authorization': `Bearer ${token}` }, body: form });
+        const data = await res.json();
+        if (res.ok) {
+          document.getElementById('f-photo-url').value = data.url;
+          status.textContent = `✓ Photo uploadée`;
+        } else {
+          status.textContent = data.error || 'Erreur upload.';
+        }
       } catch {
-        list.innerHTML = `<div class="empty error">Impossible de charger les comptes.</div>`;
+        status.textContent = 'Erreur réseau.';
       }
-    }
+    });
 
-    async function createUser() {
-      const name = document.getElementById('new-name').value.trim();
-      const email = document.getElementById('new-email').value.trim();
-      const password = document.getElementById('new-password').value;
-      const role = document.getElementById('new-role').value;
-      const status = document.getElementById('user-status');
+    async function submitForm() {
+      const status = document.getElementById('form-status');
+      const btn = document.getElementById('form-submit-btn');
+      const name = document.getElementById('f-name').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      const password = document.getElementById('f-password').value;
 
-      if (!name || !email || !password) {
-        status.textContent = 'Tous les champs sont requis.';
+      if (!name || !email || (!editingId && !password)) {
+        status.textContent = 'Nom, email et mot de passe requis.';
         status.style.color = '#c0392b';
         return;
       }
 
+      btn.disabled = true;
+      status.textContent = 'Enregistrement…';
+      status.style.color = 'var(--text-muted)';
+
+      const body = {
+        name,
+        email,
+        role: document.getElementById('f-role').value,
+        titre: document.getElementById('f-titre').value.trim(),
+        institution: document.getElementById('f-institution').value.trim(),
+        email_public: document.getElementById('f-email-public').value.trim(),
+        linkedin_url: document.getElementById('f-linkedin').value.trim(),
+        competences: document.getElementById('f-competences').value.split(',').map(c => c.trim()).filter(Boolean),
+        bio: document.getElementById('f-bio').value.trim(),
+        photo_url: document.getElementById('f-photo-url').value,
+      };
+
+      if (!editingId && password) body.password = password;
+
       try {
-        const res = await fetch('/api/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ name, email, password, role })
+        const url = editingId ? `/api/users/${editingId}` : '/api/users';
+        const method = editingId ? 'PUT' : 'POST';
+        if (!editingId) body.password = password;
+
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify(body)
         });
 
-        const data = await res.json();
         if (res.ok) {
-          toggleForm();
-          document.getElementById('new-name').value = '';
-          document.getElementById('new-email').value = '';
-          document.getElementById('new-password').value = '';
-          loadUsers();
+          resetForm();
+          load();
         } else {
+          const data = await res.json();
           status.textContent = data.error || 'Erreur.';
           status.style.color = '#c0392b';
+          btn.disabled = false;
         }
       } catch {
         status.textContent = 'Erreur réseau.';
         status.style.color = '#c0392b';
-      }
-    }
-
-    async function deleteUser(id, btn) {
-      if (!confirm('Supprimer ce compte ? Ses posts resteront en ligne.')) return;
-      btn.disabled = true;
-      try {
-        const res = await fetch(`/api/users/${id}`, {
-          method: 'DELETE',
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (res.ok) loadUsers();
-        else btn.disabled = false;
-      } catch {
         btn.disabled = false;
       }
     }
 
-    function logout() {
-      localStorage.removeItem('edem_token');
-      localStorage.removeItem('edem_user');
-      window.location.href = '/admin/login.html';
+    async function load() {
+      const list = document.getElementById('users-list');
+      try {
+        const res = await fetch('/api/users', { headers: { 'Authorization': `Bearer ${token}` } });
+        const users = await res.json();
+        list.innerHTML = users.map(u => `
+          <div class="admin-post-item">
+            <div class="admin-post-info">
+              <div class="admin-post-title">${esc(u.name)} ${u.id === user.id ? '<span style="font-size:11px;color:var(--text-muted)">(vous)</span>' : ''}</div>
+              <div class="admin-post-meta">${esc(u.email)} · ${u.titre ? esc(u.titre) + ' · ' : ''}${u.role === 'admin' ? 'Admin' : 'Auteur'}</div>
+            </div>
+            <div class="admin-post-actions">
+              <button class="btn btn-ghost btn-sm" onclick='editUser(${JSON.stringify(u)})'>Modifier</button>
+              ${u.id !== user.id ? `<button class="btn btn-danger btn-sm" onclick="del(${u.id}, this)">Supprimer</button>` : ''}
+            </div>
+          </div>
+        `).join('');
+      } catch {
+        list.innerHTML = `<div class="empty error">Erreur de chargement.</div>`;
+      }
     }
 
-    function escapeHtml(str) {
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    async function del(id, btn) {
+      if (!confirm('Supprimer ce membre ? Ses publications seront également supprimées.')) return;
+      btn.disabled = true;
+      const res = await fetch(`/api/users/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) load(); else btn.disabled = false;
     }
 
-    loadUsers();
+    function logout() { localStorage.clear(); window.location.href = '/admin/login.html'; }
+    function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    load();
   </script>
 </body>
 </html>

@@ -1,0 +1,40 @@
+<svg width="100%" viewBox="0 0 680 300" role="img" xmlns="http://www.w3.org/2000/svg" style=""><defs><mask id="imagine-text-gaps-d9t4gh" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="680" height="300" fill="white"/><rect x="242" y="54" width="305.40625" height="151" fill="black" rx="2"/><rect x="242" y="190" width="289.53125" height="19" fill="black" rx="2"/><rect x="242" y="206" width="300.34375" height="19" fill="black" rx="2"/></mask></defs>
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Logo EDEM — version minimaliste</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Logo épuré du projet EDEM : un carré vert foncé avec une icône satellite stylisée, le mot EDEM en grand, et le sous-titre en petites capitales.</desc>
+
+  
+
+  <!-- Icon mark: 72×72 centered square with satellite glyph, sits left of wordmark -->
+  <!-- Total layout: icon (72px) + gap (20px) + EDEM (~280px) = ~372px, centered at 340 → starts at x=154 -->
+
+  <!-- Square icon container -->
+  <rect x="154" y="84" width="72" height="72" rx="10" style="fill:rgb(159, 225, 203);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Satellite glyph inside: centered at 190,120 -->
+  <!-- Body -->
+  <rect x="183" y="115" width="14" height="10" rx="2" fill="#E1F5EE" style="fill:rgb(225, 245, 238);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Left panel -->
+  <rect x="165" y="117" width="16" height="6" rx="1" style="fill:rgb(93, 202, 165);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Right panel -->
+  <rect x="199" y="117" width="16" height="6" rx="1" style="fill:rgb(93, 202, 165);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Dish stem -->
+  <line x1="190" y1="115" x2="190" y2="109" stroke="#E1F5EE" stroke-width="1.5" stroke-linecap="round" style="fill:rgb(0, 0, 0);stroke:rgb(225, 245, 238);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Dish arc -->
+  <path d="M 184 109 A 6 6 0 0 1 196 109" fill="none" stroke="#E1F5EE" stroke-width="1.5" stroke-linecap="round" style="fill:none;stroke:rgb(225, 245, 238);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Signal waves (3 arcs below-right of satellite) -->
+  <path d="M 201 126 Q 210 132 208 142" stroke-width="1.5" opacity="0.9" style="fill:none;stroke:rgb(93, 202, 165);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:round;stroke-linejoin:miter;opacity:0.9;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <path d="M 204 124 Q 215 130 214 143" stroke-width="1.5" opacity="0.6" style="fill:none;stroke:rgb(93, 202, 165);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:round;stroke-linejoin:miter;opacity:0.6;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <path d="M 207 122 Q 220 129 220 144" stroke-width="1.5" opacity="0.3" style="fill:none;stroke:rgb(93, 202, 165);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:round;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Wordmark: EDEM -->
+  <text x="246" y="175" style="fill:rgb(159, 225, 203);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:system-ui, -apple-system, &quot;Helvetica Neue&quot;, sans-serif;font-size:110px;font-weight:800;text-anchor:start;dominant-baseline:auto">EDEM</text>
+
+  <!-- Divider -->
+  <line x1="246" y1="188" x2="596" y2="188" stroke="#C0DD97" stroke-width="0.75" mask="url(#imagine-text-gaps-d9t4gh)" style="fill:rgb(0, 0, 0);stroke:rgb(192, 221, 151);color:rgb(255, 255, 255);stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Subtitle -->
+  <text x="246" y="204" style="fill:rgb(93, 202, 165);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:system-ui, -apple-system, &quot;Helvetica Neue&quot;, sans-serif;font-size:11px;font-weight:400;text-anchor:start;dominant-baseline:auto">EXPLAINING DEEP LEARNING MODELS</text>
+  <text x="246" y="220" style="fill:rgb(93, 202, 165);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:system-ui, -apple-system, &quot;Helvetica Neue&quot;, sans-serif;font-size:11px;font-weight:400;text-anchor:start;dominant-baseline:auto">OF SATELLITE TIME SERIES · <tspan style="fill:rgb(225, 245, 238);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:system-ui, -apple-system, &quot;Helvetica Neue&quot;, sans-serif;font-size:11px;font-weight:600;text-anchor:start;dominant-baseline:auto">AGRITECH</tspan></text>
+
+</svg>
