@@ -47,6 +47,20 @@
           <textarea class="form-textarea" id="content" placeholder="Texte de l'actualité…" style="min-height:240px"></textarea>
         </div>
 
+        <div style="border-top:2px solid var(--border);margin-top:20px;padding-top:24px">
+          <h2 style="font-family:var(--font-display);font-size:14px;color:var(--text-muted);margin-bottom:20px;text-transform:uppercase;letter-spacing:0.05em">Version anglaise <span style="font-weight:400;text-transform:none">(optionnelle — si vide, la version française s'affiche)</span></h2>
+
+          <div class="form-group">
+            <label class="form-label">Title (EN)</label>
+            <input class="form-input" type="text" id="title_en" placeholder="English title">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Content (EN)</label>
+            <textarea class="form-textarea" id="content_en" placeholder="English content…" style="min-height:240px"></textarea>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="form-label">Image <span style="font-weight:400;color:var(--text-muted)">(URL ou upload ci-dessous)</span></label>
           <input class="form-input" type="text" id="image_url" placeholder="/uploads/… ou https://…">
@@ -90,6 +104,8 @@
         document.getElementById('title').value = item.title || '';
         document.getElementById('content').value = item.content || '';
         document.getElementById('image_url').value = item.image_url || '';
+        document.getElementById('title_en').value = item.title_en || '';
+        document.getElementById('content_en').value = item.content_en || '';
         if (item.published_at) {
           document.getElementById('published_at').value = item.published_at.slice(0, 10);
         }
@@ -139,6 +155,8 @@
         content,
         image_url: document.getElementById('image_url').value.trim(),
         published_at: dateVal ? dateVal + ' 00:00:00' : undefined,
+        title_en: document.getElementById('title_en').value.trim(),
+        content_en: document.getElementById('content_en').value.trim(),
       };
 
       try {

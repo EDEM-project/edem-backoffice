@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
   try {
     const pool = await getPool();
     const [rows] = await pool.execute(
-      'SELECT id, name, titre, institution, bio, competences, photo_url, linkedin_url, email_public, role, created_at FROM users ORDER BY created_at ASC'
+      'SELECT id, name, titre, titre_en, institution, bio, bio_en, competences, photo_url, linkedin_url, email_public, role, created_at FROM users ORDER BY created_at ASC'
     );
     res.json(rows.map(parseUser));
   } catch (err) {
@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
   try {
     const pool = await getPool();
     const [rows] = await pool.execute(
-      'SELECT id, name, titre, institution, bio, competences, photo_url, linkedin_url, email_public, role, created_at FROM users WHERE id = ?',
+      'SELECT id, name, titre, titre_en, institution, bio, bio_en, competences, photo_url, linkedin_url, email_public, role, created_at FROM users WHERE id = ?',
       [req.params.id]
     );
     if (rows.length === 0) return res.status(404).json({ error: 'Utilisateur introuvable' });
@@ -75,11 +75,11 @@ router.put('/:id', requireAuth, requireAdmin, async (req, res) => {
     if (rows.length === 0) return res.status(404).json({ error: 'Utilisateur introuvable' });
     const u = rows[0];
 
-    const { name, titre, institution, bio, competences, linkedin_url, email_public, photo_url } = req.body;
+    const { name, titre, institution, bio, competences, linkedin_url, email_public, photo_url, titre_en, bio_en } = req.body;
     const competencesStr = Array.isArray(competences) ? competences.join(',') : (competences !== undefined ? competences : u.competences);
 
     await pool.execute(
-      'UPDATE users SET name=?, titre=?, institution=?, bio=?, competences=?, linkedin_url=?, email_public=?, photo_url=? WHERE id=?',
+      'UPDATE users SET name=?, titre=?, institution=?, bio=?, competences=?, linkedin_url=?, email_public=?, photo_url=?, titre_en=?, bio_en=? WHERE id=?',
       [
         name || u.name,
         titre !== undefined ? titre : u.titre,
@@ -89,11 +89,13 @@ router.put('/:id', requireAuth, requireAdmin, async (req, res) => {
         linkedin_url !== undefined ? linkedin_url : u.linkedin_url,
         email_public !== undefined ? email_public : u.email_public,
         photo_url !== undefined ? photo_url : u.photo_url,
+        titre_en !== undefined ? titre_en : u.titre_en,
+        bio_en !== undefined ? bio_en : u.bio_en,
         req.params.id
       ]
     );
 
-    const [updated] = await pool.execute('SELECT id, name, titre, institution, bio, competences, photo_url, linkedin_url, email_public, role FROM users WHERE id = ?', [req.params.id]);
+    const [updated] = await pool.execute('SELECT id, name, titre, titre_en, institution, bio, bio_en, competences, photo_url, linkedin_url, email_public, role FROM users WHERE id = ?', [req.params.id]);
     res.json(parseUser(updated[0]));
   } catch (err) {
     console.error(err);

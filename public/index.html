@@ -963,11 +963,11 @@
       </a>
 
       <ul class="nav-links" id="nav-links" role="list">
-        <li><a href="#projet">Le projet</a></li>
-        <li><a href="publications.html">Publications</a></li>
-        <li><a href="equipe.html">Équipe</a></li>
-        <li><a href="#actualites">Actualités</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#projet" data-i18n="nav-projet">Le projet</a></li>
+        <li><a href="publications.html" data-i18n="nav-publications">Publications</a></li>
+        <li><a href="equipe.html" data-i18n="nav-equipe">Équipe</a></li>
+        <li><a href="#actualites" data-i18n="nav-actualites">Actualités</a></li>
+        <li><a href="contact.html" data-i18n="nav-contact">Contact</a></li>
       </ul>
 
       <div class="nav-actions">
@@ -979,9 +979,9 @@
         </a>
 
         <div class="lang-switch" role="group" aria-label="Sélection de la langue">
-          <button aria-label="Français (sélectionné)" aria-pressed="true">FR</button>
+          <button data-lang="fr" onclick="setLang('fr')" aria-label="Français (sélectionné)" aria-pressed="true">FR</button>
           <span class="sep" aria-hidden="true">|</span>
-          <button class="inactive" aria-label="English" aria-pressed="false">EN</button>
+          <button data-lang="en" onclick="setLang('en')" class="inactive" aria-label="English" aria-pressed="false">EN</button>
         </div>
 
         <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Ouvrir le menu de navigation">
@@ -1002,16 +1002,16 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-inner">
         <div class="hero-content">
-          <h1 id="hero-title" class="hero-title">
+          <h1 id="hero-title" class="hero-title" data-i18n-html="hero-title">
             Expliquer les IA<br/>Agricoles
           </h1>
           <span class="hero-accent" aria-hidden="true"></span>
-          <p class="hero-desc">
+          <p class="hero-desc" data-i18n-html="hero-desc">
             Les modèles de deep learning cartographient nos champs depuis l'espace mais personne ne comprend pourquoi ils décident ce qu'ils décident.
             <strong>EDEM change ça.</strong>
           </p>
           <a href="#projet" class="hero-cta">
-            Découvrir le projet
+            <span data-i18n="hero-cta">Découvrir le projet</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -1032,7 +1032,7 @@
             </iframe>
           </div>
             <div class="hero-partners">
-              <p>En partenariat avec</p>
+              <p data-i18n="hero-partners">En partenariat avec</p>
               <div class="hero-partners-logos">
                 <a href="https://www.etis-lab.fr/" target="_blank" aria-label="Site web du laboratoire ETIS">
                   <img src="img/etis.png" alt="Logo du laboratoire ETIS" class="partner-logo" />
@@ -1059,13 +1059,13 @@
 
         <div class="news-header reveal">
           <div>
-            <span class="section-eyebrow">Actualités</span>
-            <h2 id="news-title" class="section-title">
+            <span class="section-eyebrow" data-i18n="news-eyebrow">Actualités</span>
+            <h2 id="news-title" class="section-title" data-i18n-html="news-heading">
               Les dernières nouvelles<br/>du <em>projet</em>
             </h2>
           </div>
           <a href="publications.html" class="btn-primary" style="flex-shrink:0">
-            Toutes les publications
+            <span data-i18n="news-all-pubs">Toutes les publications</span>
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
               <path d="M2.5 7.5H12.5M12.5 7.5L8 3M12.5 7.5L8 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -1114,15 +1114,15 @@
           <img src="img/researcherandfarmer.jpg" alt="Chercheurs travaillant sur des modèles d'IA agricole" width="480" height="320" loading="lazy" />
         </div>
         <div class="content-text">
-          <span class="section-eyebrow">Recherche</span>
-          <h2 id="recherche-title" class="section-title">
+          <span class="section-eyebrow" data-i18n="research-eyebrow">Recherche</span>
+          <h2 id="recherche-title" class="section-title" data-i18n-html="research-heading">
             Une recherche pour<br/>l'intérêt de <em>l'humanité</em>
           </h2>
-          <p class="section-desc">
+          <p class="section-desc" data-i18n="research-desc">
             Chercheurs et agriculteurs se sont réunis pour trouver une solution : l'intelligence artificielle peut épauler les professionnels agricoles dans leurs prises de décisions, en rendant les modèles satellites compréhensibles et actionnables.
           </p>
           <a href="publications.html" class="btn-primary">
-            Voir les publications
+            <span data-i18n="research-cta">Voir les publications</span>
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
               <path d="M2.5 7.5H12.5M12.5 7.5L8 3M12.5 7.5L8 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -1140,15 +1140,15 @@
           <img src="img/P1047759.JPG" alt="L'équipe de recherche du laboratoire ETIS" width="480" height="320" loading="lazy" />
         </div>
         <div class="content-text">
-          <span class="section-eyebrow">Équipe</span>
-          <h2 id="equipe-title" class="section-title">
+          <span class="section-eyebrow" data-i18n="nav-equipe">Équipe</span>
+          <h2 id="equipe-title" class="section-title" data-i18n-html="team-heading">
             Une équipe de chercheurs<br/><em>déterminée</em>
           </h2>
-          <p class="section-desc">
-            Les membres du laboratoire ETIS combinent expertise en apprentissage automatique, traitement d'images satellite et agronomie. Leur objectif commun&nbsp;: rendre l'IA agricole transparente, fiable et utile sur le terrain.
+          <p class="section-desc" data-i18n="team-desc">
+            Les membres du laboratoire ETIS combinent expertise en apprentissage automatique, traitement d'images satellite et agronomie. Leur objectif commun : rendre l'IA agricole transparente, fiable et utile sur le terrain.
           </p>
           <a href="equipe.html" class="btn-primary">
-            Voir l'équipe
+            <span data-i18n="team-cta">Voir l'équipe</span>
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
               <path d="M2.5 7.5H12.5M12.5 7.5L8 3M12.5 7.5L8 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -1187,7 +1187,7 @@
 
         <div class="footer-brand">
           <div class="footer-brand-name">EDEM</div>
-          <p class="footer-brand-desc">
+          <p class="footer-brand-desc" data-i18n-html="footer-brand-desc">
             Expliquer les IA Agricoles.<br/>
             Un projet ANR porté par le laboratoire ETIS,<br/>CY Cergy Paris Université &amp; ENSEA.
           </p>
@@ -1217,7 +1217,7 @@
         </div>
 
         <div class="footer-newsletter">
-          <p class="footer-newsletter-title">Rester informé</p>
+          <p class="footer-newsletter-title" data-i18n="footer-rester">Rester informé</p>
           <form class="newsletter-form" action="#" method="post" aria-label="Inscription à la newsletter">
             <label for="newsletter-email" class="sr-only">Votre adresse e-mail</label>
             <input
@@ -1230,7 +1230,7 @@
               autocomplete="email"
               aria-required="true"
             />
-            <button type="submit" class="newsletter-btn">Envoyer</button>
+            <button type="submit" class="newsletter-btn" data-i18n="btn-envoyer">Envoyer</button>
           </form>
         </div>
 
@@ -1246,6 +1246,7 @@
   <!-- Visually hidden utility class -->
   <style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}</style>
 
+  <script src="/i18n.js"></script>
   <script>
     // Sticky header shadow on scroll
     const header = document.getElementById('site-header');
@@ -1285,31 +1286,44 @@
     // News modal logic
     const backdrop = document.getElementById('news-modal-backdrop');
     const modalClose = document.getElementById('news-modal-close');
+    let _activePost = null;
 
     function openModal(post) {
-      const date = new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR', {
-        day: 'numeric', month: 'long', year: 'numeric'
-      });
-      document.getElementById('modal-date').textContent = date;
-      document.getElementById('modal-author').textContent = post.author_name || 'EDEM';
-      document.getElementById('modal-title').textContent = post.title;
-      document.getElementById('modal-content').textContent = (post.content || '').replace(/<[^>]*>/g, '');
-      const img = document.getElementById('modal-img');
-      if (post.image_url) {
-        img.src = post.image_url;
-        img.alt = post.title;
-        img.style.display = 'block';
-      } else {
-        img.style.display = 'none';
-      }
+      _activePost = post;
+      renderModal();
       backdrop.classList.add('open');
       document.body.style.overflow = 'hidden';
       modalClose.focus();
     }
 
+    function renderModal() {
+      if (!_activePost) return;
+      const post = _activePost;
+      const lang = getCurrentLang();
+      const locale = lang === 'en' ? 'en-US' : 'fr-FR';
+      const date = new Date(post.published_at || post.created_at).toLocaleDateString(locale, {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+      const title = (lang === 'en' && post.title_en) ? post.title_en : post.title;
+      const content = (lang === 'en' && post.content_en) ? post.content_en : (post.content || '');
+      document.getElementById('modal-date').textContent = date;
+      document.getElementById('modal-author').textContent = post.author_name || 'EDEM';
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-content').textContent = content.replace(/<[^>]*>/g, '');
+      const img = document.getElementById('modal-img');
+      if (post.image_url) {
+        img.src = post.image_url;
+        img.alt = title;
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+    }
+
     function closeModal() {
       backdrop.classList.remove('open');
       document.body.style.overflow = '';
+      _activePost = null;
     }
 
     modalClose.addEventListener('click', closeModal);
@@ -1317,64 +1331,78 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
     // News section: fetch and render recent posts
+    let _recentNews = [];
+
+    function renderNews() {
+      const grid = document.getElementById('news-grid');
+      const lang = getCurrentLang();
+      const locale = lang === 'en' ? 'en-US' : 'fr-FR';
+
+      if (_recentNews.length === 0) {
+        grid.innerHTML = `<p class="news-empty">${t('news-empty')}</p>`;
+        return;
+      }
+
+      grid.innerHTML = _recentNews.map((post, i) => {
+        const title = (lang === 'en' && post.title_en) ? post.title_en : post.title;
+        const content = (lang === 'en' && post.content_en) ? post.content_en : (post.content || '');
+        const date = new Date(post.published_at || post.created_at).toLocaleDateString(locale, {
+          day: 'numeric', month: 'long', year: 'numeric'
+        });
+        const raw = content.replace(/<[^>]*>/g, '');
+        const excerpt = raw.length > 180 ? raw.slice(0, 180).trimEnd() + '…' : raw;
+        const author = post.author_name || 'EDEM';
+        return `
+          <article class="news-card reveal" data-news-index="${i}">
+            <div class="news-card-meta">
+              <time class="news-card-date" datetime="${post.published_at || post.created_at}">${date}</time>
+              <span class="news-card-dot" aria-hidden="true"></span>
+              <span class="news-card-author">${author}</span>
+            </div>
+            <h3 class="news-card-title">${title}</h3>
+            <p class="news-card-excerpt">${excerpt}</p>
+            <button class="news-card-link" aria-label="${t('news-read-more')} : ${title}">
+              ${t('news-read-more')}
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 7H12M12 7L7.5 2.5M12 7L7.5 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </article>`;
+      }).join('');
+
+      grid.querySelectorAll('.news-card').forEach((card) => {
+        const idx = parseInt(card.dataset.newsIndex, 10);
+        card.addEventListener('click', () => openModal(_recentNews[idx]));
+      });
+
+      grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+
     async function loadNews() {
       const grid = document.getElementById('news-grid');
       try {
         const res = await fetch('/api/news');
         if (!res.ok) throw new Error('Erreur réseau');
         const posts = await res.json();
-
-        if (!posts.length) {
-          grid.innerHTML = '<p class="news-empty">Aucune actualité pour le moment.</p>';
-          return;
-        }
-
-        const recent = posts.slice(0, 3);
-        grid.innerHTML = recent.map((post, i) => {
-          const date = new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR', {
-            day: 'numeric', month: 'long', year: 'numeric'
-          });
-          const raw = (post.content || '').replace(/<[^>]*>/g, '');
-          const excerpt = raw.length > 180 ? raw.slice(0, 180).trimEnd() + '…' : raw;
-          const author = post.author_name || 'EDEM';
-          return `
-            <article class="news-card reveal" data-news-index="${i}">
-              <div class="news-card-meta">
-                <time class="news-card-date" datetime="${post.published_at || post.created_at}">${date}</time>
-                <span class="news-card-dot" aria-hidden="true"></span>
-                <span class="news-card-author">${author}</span>
-              </div>
-              <h3 class="news-card-title">${post.title}</h3>
-              <p class="news-card-excerpt">${excerpt}</p>
-              <button class="news-card-link" aria-label="Lire l'article : ${post.title}">
-                Lire la suite
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M2 7H12M12 7L7.5 2.5M12 7L7.5 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-            </article>`;
-        }).join('');
-
-        // Wire up click handlers to open modal
-        grid.querySelectorAll('.news-card').forEach((card) => {
-          const idx = parseInt(card.dataset.newsIndex, 10);
-          card.addEventListener('click', () => openModal(recent[idx]));
-        });
-
-        // Observe newly added reveal elements
-        grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
+        _recentNews = posts.slice(0, 3);
+        renderNews();
       } catch {
         grid.innerHTML = '<p class="news-empty" role="alert">Impossible de charger les actualités.</p>';
       }
     }
+
+    document.addEventListener('langchange', () => {
+      renderNews();
+      if (_activePost) renderModal();
+    });
+
     loadNews();
 
     // Newsletter submit feedback
     document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = e.target.querySelector('.newsletter-btn');
-      btn.textContent = '✓ Inscrit';
+      btn.textContent = getCurrentLang() === 'en' ? '✓ Subscribed' : '✓ Inscrit';
       btn.disabled = true;
       btn.style.background = '#f0fdf4';
       btn.style.color = '#166534';

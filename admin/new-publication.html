@@ -76,6 +76,25 @@
           <input class="form-input" type="text" id="pdf_url" placeholder="https://… ou /uploads/fichier.pdf">
         </div>
 
+        <div style="border-top:2px solid var(--border);margin-top:20px;padding-top:24px">
+          <h2 style="font-family:var(--font-display);font-size:14px;color:var(--text-muted);margin-bottom:20px;text-transform:uppercase;letter-spacing:0.05em">Version anglaise <span style="font-weight:400;text-transform:none">(optionnelle — si vide, la version française s'affiche)</span></h2>
+
+          <div class="form-group">
+            <label class="form-label">Title (EN)</label>
+            <input class="form-input" type="text" id="title_en" placeholder="English title">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Abstract (EN)</label>
+            <textarea class="form-textarea" id="summary_en" placeholder="English abstract…" style="min-height:100px"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Explanation (EN)</label>
+            <textarea class="form-textarea" id="explanation_en" placeholder="English explanation…" style="min-height:200px"></textarea>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="form-label">Upload PDF ou image</label>
           <input type="file" id="file-upload" accept=".pdf,image/*" style="font-size:14px;color:var(--text-muted)">
@@ -116,6 +135,9 @@
         document.getElementById('code_language').value = pub.code_language || 'Python';
         document.getElementById('tags').value = Array.isArray(pub.tags) ? pub.tags.join(', ') : '';
         document.getElementById('pdf_url').value = pub.pdf_url || '';
+        document.getElementById('title_en').value = pub.title_en || '';
+        document.getElementById('summary_en').value = pub.summary_en || '';
+        document.getElementById('explanation_en').value = pub.explanation_en || '';
       });
     }
 
@@ -166,6 +188,9 @@
         tags: document.getElementById('tags').value.split(',').map(t => t.trim()).filter(Boolean),
         type: document.getElementById('type').value,
         pdf_url: document.getElementById('pdf_url').value.trim(),
+        title_en: document.getElementById('title_en').value.trim(),
+        summary_en: document.getElementById('summary_en').value.trim(),
+        explanation_en: document.getElementById('explanation_en').value.trim(),
       };
 
       try {

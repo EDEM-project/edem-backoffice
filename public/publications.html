@@ -23,10 +23,10 @@
         <span class="font-sans font-extrabold text-xl text-stone-900 tracking-[-0.02em]">EDEM</span>
       </a>
       <ul class="hidden md:flex items-center gap-1 list-none" id="nav-links" role="list">
-        <li><a href="index.html#projet" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5">Le projet</a></li>
-        <li><a href="publications.html" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5">Publications</a></li>
-        <li><a href="equipe.html" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5">Équipe</a></li>
-        <li><a href="contact.html" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5">Contact</a></li>
+        <li><a href="index.html#projet" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5" data-i18n="nav-projet">Le projet</a></li>
+        <li><a href="publications.html" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5" data-i18n="nav-publications">Publications</a></li>
+        <li><a href="equipe.html" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5" data-i18n="nav-equipe">Équipe</a></li>
+        <li><a href="contact.html" class="block px-[0.85rem] py-2 text-sm font-normal text-stone-800 no-underline rounded-[6px] transition-all duration-300 hover:bg-black/5" data-i18n="nav-contact">Contact</a></li>
       </ul>
       <div class="flex items-center gap-4 shrink-0">
         <a href="https://anr.fr/Projet-ANR-24-CE23-6449" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-[0.4rem] px-4 py-[0.55rem] bg-teal-700 text-white text-[0.8125rem] font-semibold rounded-[7px] no-underline transition-all duration-300 hover:bg-teal-800 hover:-translate-y-px">
@@ -34,9 +34,9 @@
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <div class="flex items-center gap-1 text-[0.75rem] font-medium">
-          <button class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded-[4px] text-stone-900 font-bold text-[0.75rem]">FR</button>
+          <button data-lang="fr" onclick="setLang('fr')" class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded-[4px] text-stone-900 font-bold text-[0.75rem]">FR</button>
           <span class="text-black/30">|</span>
-          <button class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded-[4px] text-black/45 font-normal text-[0.75rem]">EN</button>
+          <button data-lang="en" onclick="setLang('en')" class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded-[4px] text-black/45 font-normal text-[0.75rem]">EN</button>
         </div>
       </div>
     </nav>
@@ -51,16 +51,17 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
           </svg>
           <input id="search-input" type="text" placeholder="Rechercher…"
+            data-i18n-placeholder="search-placeholder"
             class="w-full pl-9 pr-4 h-10 bg-white rounded-lg border border-stone-300 text-sm text-stone-700 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition"/>
         </div>
       </div>
 
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-4" id="filter-btns">
-          <button class="filter-btn active px-4 h-7 bg-green-100 rounded-lg text-xs" data-type="all">toutes</button>
-          <button class="filter-btn px-2 h-7 text-xs text-stone-500 hover:text-stone-800" data-type="recherche">recherches</button>
-          <button class="filter-btn px-2 h-7 text-xs text-stone-500 hover:text-stone-800" data-type="rapport">rapports</button>
-          <button class="filter-btn px-2 h-7 text-xs text-stone-500 hover:text-stone-800" data-type="article">articles</button>
+          <button class="filter-btn active px-4 h-7 bg-green-100 rounded-lg text-xs" data-type="all" data-i18n="filter-all">toutes</button>
+          <button class="filter-btn px-2 h-7 text-xs text-stone-500 hover:text-stone-800" data-type="recherche" data-i18n="filter-recherche">recherches</button>
+          <button class="filter-btn px-2 h-7 text-xs text-stone-500 hover:text-stone-800" data-type="rapport" data-i18n="filter-rapport">rapports</button>
+          <button class="filter-btn px-2 h-7 text-xs text-stone-500 hover:text-stone-800" data-type="article" data-i18n="filter-article">articles</button>
         </div>
       </div>
       <hr class="border-stone-200"/>
@@ -68,7 +69,7 @@
 
     <!-- Liste dynamique -->
     <div id="publications-list" class="flex flex-col gap-4">
-      <div class="text-stone-400 text-sm py-8">Chargement…</div>
+      <div class="text-stone-400 text-sm py-8" data-i18n="loading">Chargement…</div>
     </div>
   </main>
 
@@ -80,13 +81,13 @@
       <nav class="flex flex-col gap-3 pt-1">
         <a href="#" class="text-white/80 text-sm font-medium hover:text-white transition-colors">Mentions légales</a>
         <a href="#" class="text-white/80 text-sm font-medium hover:text-white transition-colors">À propos</a>
-        <a href="equipe.html" class="text-white/80 text-sm font-medium hover:text-white transition-colors">Équipe</a>
+        <a href="equipe.html" class="text-white/80 text-sm font-medium hover:text-white transition-colors" data-i18n="nav-equipe">Équipe</a>
       </nav>
       <div class="flex flex-col gap-4">
-        <h3 class="text-white text-lg font-semibold">Rester informé</h3>
+        <h3 class="text-white text-lg font-semibold" data-i18n="footer-rester">Rester informé</h3>
         <div class="flex gap-2">
           <input type="email" placeholder="Votre email" class="flex-1 min-w-0 h-11 px-4 bg-transparent border border-white/50 rounded text-white placeholder-white/50 text-sm focus:outline-none focus:border-white transition-colors"/>
-          <button class="px-5 h-11 bg-white rounded text-teal-700 text-sm font-semibold hover:bg-green-50 transition-colors whitespace-nowrap">Envoyer</button>
+          <button class="px-5 h-11 bg-white rounded text-teal-700 text-sm font-semibold hover:bg-green-50 transition-colors whitespace-nowrap" data-i18n="btn-envoyer">Envoyer</button>
         </div>
       </div>
     </div>
@@ -97,6 +98,7 @@
     </div>
   </footer>
 
+  <script src="/i18n.js"></script>
   <script>
     let allPublications = [];
     let activeType = 'all';
@@ -114,39 +116,45 @@
 
     function renderPublications() {
       const list = document.getElementById('publications-list');
+      const lang = getCurrentLang();
       const search = document.getElementById('search-input').value.toLowerCase();
 
       const filtered = allPublications.filter(pub => {
         const matchType = activeType === 'all' || pub.type === activeType;
+        const title = (lang === 'en' && pub.title_en) ? pub.title_en : pub.title;
+        const summary = (lang === 'en' && pub.summary_en) ? pub.summary_en : pub.summary;
         const matchSearch = !search ||
-          pub.title.toLowerCase().includes(search) ||
-          pub.summary.toLowerCase().includes(search) ||
+          title.toLowerCase().includes(search) ||
+          summary.toLowerCase().includes(search) ||
           pub.author_name.toLowerCase().includes(search) ||
           pub.tags.some(t => t.toLowerCase().includes(search));
         return matchType && matchSearch;
       });
 
       if (filtered.length === 0) {
-        list.innerHTML = `<div class="text-stone-400 text-sm py-8">Aucune publication trouvée.</div>`;
+        list.innerHTML = `<div class="text-stone-400 text-sm py-8">${t('no-publications')}</div>`;
         return;
       }
 
-      list.innerHTML = filtered.map(pub => `
+      list.innerHTML = filtered.map(pub => {
+        const title = (lang === 'en' && pub.title_en) ? pub.title_en : pub.title;
+        const summary = (lang === 'en' && pub.summary_en) ? pub.summary_en : pub.summary;
+        return `
         <article class="w-full px-5 py-4 bg-white rounded-lg border border-teal-600 flex flex-col gap-4 card-hover cursor-pointer"
                  onclick="window.location.href='publication.html?id=${pub.id}'">
           <div class="flex flex-col gap-1">
-            <h2 class="text-lg font-semibold text-stone-900">${escapeHtml(pub.title)}</h2>
+            <h2 class="text-lg font-semibold text-stone-900">${escapeHtml(title)}</h2>
             <p class="text-xs text-stone-400">le ${formatDate(pub.created_at)} · par <span class="font-medium text-stone-600">${escapeHtml(pub.author_name)}</span></p>
-            <p class="text-sm text-stone-600 font-light leading-relaxed mt-1">${escapeHtml(pub.summary).substring(0, 180)}${pub.summary.length > 180 ? '…' : ''}</p>
+            <p class="text-sm text-stone-600 font-light leading-relaxed mt-1">${escapeHtml(summary).substring(0, 180)}${summary.length > 180 ? '…' : ''}</p>
           </div>
           <div class="flex justify-between items-center">
             <div class="flex items-center gap-2 flex-wrap">
-              ${pub.tags.map(t => `<span class="px-3 py-1 bg-green-100 rounded-full text-xs text-stone-700">${escapeHtml(t)}</span>`).join('')}
+              ${pub.tags.map(tag => `<span class="px-3 py-1 bg-green-100 rounded-full text-xs text-stone-700">${escapeHtml(tag)}</span>`).join('')}
             </div>
-            <span class="text-sm text-teal-600 hover:text-teal-700 font-medium whitespace-nowrap">Consulter →</span>
+            <span class="text-sm text-teal-600 hover:text-teal-700 font-medium whitespace-nowrap">${t('btn-consulter')}</span>
           </div>
         </article>
-      `).join('');
+      `}).join('');
     }
 
     // Filtres
@@ -162,8 +170,12 @@
     // Recherche
     document.getElementById('search-input').addEventListener('input', renderPublications);
 
+    // Re-render on language change
+    document.addEventListener('langchange', renderPublications);
+
     function formatDate(str) {
-      return new Date(str).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      const lang = getCurrentLang();
+      return new Date(str).toLocaleDateString(lang === 'en' ? 'en-US' : 'fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
     }
 
     function escapeHtml(str) {

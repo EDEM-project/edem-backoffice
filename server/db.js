@@ -70,6 +70,14 @@ async function initTables() {
         FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
       )
     `);
+
+    await conn.execute(`ALTER TABLE news ADD COLUMN IF NOT EXISTS title_en VARCHAR(255)`);
+    await conn.execute(`ALTER TABLE news ADD COLUMN IF NOT EXISTS content_en TEXT`);
+    await conn.execute(`ALTER TABLE users ADD COLUMN IF NOT EXISTS bio_en TEXT`);
+    await conn.execute(`ALTER TABLE users ADD COLUMN IF NOT EXISTS titre_en VARCHAR(255)`);
+    await conn.execute(`ALTER TABLE publications ADD COLUMN IF NOT EXISTS title_en VARCHAR(255)`);
+    await conn.execute(`ALTER TABLE publications ADD COLUMN IF NOT EXISTS summary_en TEXT`);
+    await conn.execute(`ALTER TABLE publications ADD COLUMN IF NOT EXISTS explanation_en TEXT`);
   } finally {
     conn.release();
   }

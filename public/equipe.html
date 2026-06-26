@@ -21,10 +21,10 @@
         <span class="font-sans font-extrabold text-xl text-stone-900 tracking-[-0.02em]">EDEM</span>
       </a>
       <ul class="hidden md:flex items-center gap-1 list-none" role="list">
-        <li><a href="index.html#projet" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all">Le projet</a></li>
-        <li><a href="publications.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all">Publications</a></li>
-        <li><a href="equipe.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all">Équipe</a></li>
-        <li><a href="contact.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all">Contact</a></li>
+        <li><a href="index.html#projet" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-projet">Le projet</a></li>
+        <li><a href="publications.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-publications">Publications</a></li>
+        <li><a href="equipe.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-equipe">Équipe</a></li>
+        <li><a href="contact.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-contact">Contact</a></li>
       </ul>
       <div class="flex items-center gap-4 shrink-0">
         <a href="https://anr.fr/Projet-ANR-24-CE23-6449" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-[0.4rem] px-4 py-[0.55rem] bg-teal-700 text-white text-[0.8125rem] font-semibold rounded-[7px] no-underline hover:bg-teal-800 transition-all">
@@ -32,9 +32,9 @@
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <div class="flex items-center gap-1 text-[0.75rem] font-medium">
-          <button class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded text-stone-900 font-bold text-[0.75rem]">FR</button>
+          <button data-lang="fr" onclick="setLang('fr')" class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded text-stone-900 font-bold text-[0.75rem]">FR</button>
           <span class="text-black/30">|</span>
-          <button class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded text-black/45 text-[0.75rem]">EN</button>
+          <button data-lang="en" onclick="setLang('en')" class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded text-black/45 text-[0.75rem]">EN</button>
         </div>
       </div>
     </nav>
@@ -45,8 +45,8 @@
 
       <section class="flex-1 min-w-0 flex flex-col gap-8 w-full">
         <div class="flex flex-col gap-2">
-          <span class="text-xs font-semibold text-teal-600 uppercase tracking-widest">Membres du projet</span>
-          <h1 class="text-3xl md:text-4xl font-bold text-stone-900 tracking-tight">L'équipe de recherche</h1>
+          <span class="text-xs font-semibold text-teal-600 uppercase tracking-widest" data-i18n="equipe-label">Membres du projet</span>
+          <h1 class="text-3xl md:text-4xl font-bold text-stone-900 tracking-tight" data-i18n="equipe-titre">L'équipe de recherche</h1>
           <p class="text-stone-600 text-sm font-light max-w-2xl leading-relaxed">
             Notre équipe interdisciplinaire regroupe des chercheurs, ingénieurs et doctorants dédiés à l'analyse avancée des données satellitaires agricoles.
           </p>
@@ -54,7 +54,7 @@
         </div>
 
         <div id="team-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div class="text-stone-400 text-sm col-span-2 py-8">Chargement…</div>
+          <div class="text-stone-400 text-sm col-span-2 py-8" data-i18n="loading">Chargement…</div>
         </div>
       </section>
 
@@ -84,13 +84,13 @@
       <div class="flex flex-col gap-6"><span class="text-white text-2xl font-bold tracking-tight">EDEM</span></div>
       <nav class="flex flex-col gap-3 pt-1">
         <a href="#" class="text-white/80 text-sm font-medium hover:text-white transition-colors">Mentions légales</a>
-        <a href="equipe.html" class="text-white/80 text-sm font-medium hover:text-white transition-colors">Équipe</a>
+        <a href="equipe.html" class="text-white/80 text-sm font-medium hover:text-white transition-colors" data-i18n="nav-equipe">Équipe</a>
       </nav>
       <div class="flex flex-col gap-4">
-        <h3 class="text-white text-lg font-semibold">Rester informé</h3>
+        <h3 class="text-white text-lg font-semibold" data-i18n="footer-rester">Rester informé</h3>
         <div class="flex gap-2">
           <input type="email" placeholder="Votre email" class="flex-1 min-w-0 h-11 px-4 bg-transparent border border-white/50 rounded text-white placeholder-white/50 text-sm focus:outline-none focus:border-white transition-colors"/>
-          <button class="px-5 h-11 bg-white rounded text-teal-700 text-sm font-semibold hover:bg-green-50 transition-colors">Envoyer</button>
+          <button class="px-5 h-11 bg-white rounded text-teal-700 text-sm font-semibold hover:bg-green-50 transition-colors" data-i18n="btn-envoyer">Envoyer</button>
         </div>
       </div>
     </div>
@@ -101,7 +101,10 @@
     </div>
   </footer>
 
+  <script src="/i18n.js"></script>
   <script>
+    let _users = [];
+
     function initials(name) {
       return name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
     }
@@ -110,19 +113,19 @@
       return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    async function load() {
+    function renderTeam() {
       const grid = document.getElementById('team-grid');
-      const stats = document.getElementById('stats');
-      try {
-        const res = await fetch('/api/users');
-        const users = await res.json();
+      const lang = getCurrentLang();
 
-        if (users.length === 0) {
-          grid.innerHTML = `<div class="text-stone-400 text-sm col-span-2">Aucun membre pour le moment.</div>`;
-          return;
-        }
+      if (_users.length === 0) {
+        grid.innerHTML = `<div class="text-stone-400 text-sm col-span-2">${t('no-membres')}</div>`;
+        return;
+      }
 
-        grid.innerHTML = users.map(u => `
+      grid.innerHTML = _users.map(u => {
+        const titre = (lang === 'en' && u.titre_en) ? u.titre_en : u.titre;
+        const bio = (lang === 'en' && u.bio_en) ? u.bio_en : u.bio;
+        return `
           <article class="researcher-card bg-white rounded-xl border border-stone-200 p-5 flex flex-col gap-4 cursor-pointer"
                    onclick="window.location.href='chercheur.html?id=${u.id}'">
             <div class="flex items-start gap-4">
@@ -134,11 +137,11 @@
               }
               <div class="flex flex-col justify-center min-w-0">
                 <h2 class="text-base font-semibold text-stone-900 truncate">${esc(u.name)}</h2>
-                ${u.titre ? `<span class="text-xs font-medium text-teal-600 uppercase tracking-wider mt-0.5">${esc(u.titre)}</span>` : ''}
+                ${titre ? `<span class="text-xs font-medium text-teal-600 uppercase tracking-wider mt-0.5">${esc(titre)}</span>` : ''}
                 ${u.institution ? `<span class="text-xs text-stone-400 font-light mt-1">${esc(u.institution)}</span>` : ''}
               </div>
             </div>
-            ${u.bio ? `<p class="text-xs text-stone-600 font-light leading-relaxed">${esc(u.bio).substring(0, 160)}${u.bio.length > 160 ? '…' : ''}</p>` : ''}
+            ${bio ? `<p class="text-xs text-stone-600 font-light leading-relaxed">${esc(bio).substring(0, 160)}${bio.length > 160 ? '…' : ''}</p>` : ''}
             <div class="flex items-center gap-3 mt-auto pt-2 border-t border-stone-100">
               ${u.email_public ? `
               <a href="mailto:${esc(u.email_public)}" onclick="event.stopPropagation()" aria-label="Email" class="text-stone-400 hover:text-teal-600 transition-colors">
@@ -148,13 +151,23 @@
               <a href="${esc(u.linkedin_url)}" target="_blank" onclick="event.stopPropagation()" aria-label="LinkedIn" class="text-stone-400 hover:text-teal-600 transition-colors">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               </a>` : ''}
-              <span class="ml-auto text-xs text-teal-600 font-medium">Voir le profil →</span>
+              <span class="ml-auto text-xs text-teal-600 font-medium">${t('btn-profil')}</span>
             </div>
           </article>
-        `).join('');
+        `;
+      }).join('');
+    }
 
-        const admins = users.filter(u => u.role === 'admin').length;
-        const authors = users.filter(u => u.role === 'author').length;
+    async function load() {
+      const stats = document.getElementById('stats');
+      try {
+        const res = await fetch('/api/users');
+        _users = await res.json();
+
+        renderTeam();
+
+        const admins = _users.filter(u => u.role === 'admin').length;
+        const authors = _users.filter(u => u.role === 'author').length;
         stats.innerHTML = `
           <div class="flex items-center justify-between border-b border-stone-100 pb-2">
             <span class="text-xs text-stone-500">Chercheurs permanents</span>
@@ -166,13 +179,15 @@
           </div>
           <div class="flex items-center justify-between">
             <span class="text-xs text-stone-500">Total membres</span>
-            <span class="text-sm font-bold text-teal-600">${users.length}</span>
+            <span class="text-sm font-bold text-teal-600">${_users.length}</span>
           </div>
         `;
       } catch {
-        grid.innerHTML = `<div class="text-stone-400 text-sm col-span-2">Impossible de charger l'équipe.</div>`;
+        document.getElementById('team-grid').innerHTML = `<div class="text-stone-400 text-sm col-span-2">Impossible de charger l'équipe.</div>`;
       }
     }
+
+    document.addEventListener('langchange', renderTeam);
 
     load();
   </script>

@@ -80,6 +80,21 @@
           <textarea class="form-textarea" id="f-bio" placeholder="Quelques lignes de présentation…" style="min-height:100px"></textarea>
         </div>
 
+        <div style="border-top:2px solid var(--border);margin-top:16px;padding-top:20px">
+          <h2 style="font-family:var(--font-display);font-size:14px;color:var(--text-muted);margin-bottom:16px;text-transform:uppercase;letter-spacing:0.05em">Version anglaise <span style="font-weight:400;text-transform:none">(optionnelle)</span></h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label class="form-label">Job title (EN)</label>
+              <input class="form-input" type="text" id="f-titre-en" placeholder="e.g. Associate Professor">
+            </div>
+            <div></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Bio (EN)</label>
+            <textarea class="form-textarea" id="f-bio-en" placeholder="English bio…" style="min-height:100px"></textarea>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="form-label">Photo de profil</label>
           <input type="file" id="f-photo" accept="image/*" style="font-size:14px;color:var(--text-muted)">
@@ -105,6 +120,7 @@
     document.getElementById('sidebar-user').textContent = user?.name || '';
 
     let editingId = null;
+    let userMap = {};
 
     function toggleForm() {
       const f = document.getElementById('add-form');
@@ -115,7 +131,7 @@
       editingId = null;
       document.getElementById('form-title').textContent = 'Nouveau membre';
       document.getElementById('form-submit-btn').textContent = 'Créer';
-      ['f-name','f-email','f-password','f-titre','f-institution','f-email-public','f-linkedin','f-competences','f-bio','f-photo-url'].forEach(id => {
+      ['f-name','f-email','f-password','f-titre','f-institution','f-email-public','f-linkedin','f-competences','f-bio','f-photo-url','f-titre-en','f-bio-en'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
@@ -138,6 +154,8 @@
       document.getElementById('f-competences').value = Array.isArray(u.competences) ? u.competences.join(', ') : '';
       document.getElementById('f-bio').value = u.bio || '';
       document.getElementById('f-photo-url').value = u.photo_url || '';
+      document.getElementById('f-titre-en').value = u.titre_en || '';
+      document.getElementById('f-bio-en').value = u.bio_en || '';
       document.getElementById('add-form').style.display = 'block';
       document.getElementById('add-form').scrollIntoView({ behavior: 'smooth' });
     }
@@ -192,6 +210,8 @@
         competences: document.getElementById('f-competences').value.split(',').map(c => c.trim()).filter(Boolean),
         bio: document.getElementById('f-bio').value.trim(),
         photo_url: document.getElementById('f-photo-url').value,
+        titre_en: document.getElementById('f-titre-en').value.trim(),
+        bio_en: document.getElementById('f-bio-en').value.trim(),
       };
 
       if (!editingId && password) body.password = password;
@@ -228,6 +248,8 @@
       try {
         const res = await fetch('/api/users', { headers: { 'Authorization': `Bearer ${token}` } });
         const users = await res.json();
+        userMap = {};
+        users.forEach(u => userMap[u.id] = u);
         list.innerHTML = users.map(u => `
           <div class="admin-post-item">
             <div class="admin-post-info">
@@ -235,7 +257,7 @@
               <div class="admin-post-meta">${esc(u.email)} · ${u.titre ? esc(u.titre) + ' · ' : ''}${u.role === 'admin' ? 'Admin' : 'Auteur'}</div>
             </div>
             <div class="admin-post-actions">
-              <button class="btn btn-ghost btn-sm" onclick='editUser(${JSON.stringify(u)})'>Modifier</button>
+              <button class="btn btn-ghost btn-sm" onclick="editUser(userMap[${u.id}])">Modifier</button>
               ${u.id !== user.id ? `<button class="btn btn-danger btn-sm" onclick="del(${u.id}, this)">Supprimer</button>` : ''}
             </div>
           </div>

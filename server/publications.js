@@ -46,7 +46,7 @@ router.get('/:id', async (req, res) => {
 
 // POST créer une publication (authentifié)
 router.post('/', requireAuth, async (req, res) => {
-  const { title, summary, explanation, code_snippet, code_language, tags, type, pdf_url, image_url } = req.body;
+  const { title, summary, explanation, code_snippet, code_language, tags, type, pdf_url, image_url, title_en, summary_en, explanation_en } = req.body;
 
   if (!title || !summary) {
     return res.status(400).json({ error: 'Titre et résumé requis' });
@@ -56,9 +56,9 @@ router.post('/', requireAuth, async (req, res) => {
     const pool = await getPool();
     const tagsStr = Array.isArray(tags) ? tags.join(',') : (tags || '');
     const [result] = await pool.execute(
-      `INSERT INTO publications (title, summary, explanation, code_snippet, code_language, tags, type, pdf_url, image_url, author_id)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [title, summary, explanation || '', code_snippet || '', code_language || 'Python', tagsStr, type || 'recherche', pdf_url || '', image_url || '', req.user.id]
+      `INSERT INTO publications (title, summary, explanation, code_snippet, code_language, tags, type, pdf_url, image_url, author_id, title_en, summary_en, explanation_en)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [title, summary, explanation || '', code_snippet || '', code_language || 'Python', tagsStr, type || 'recherche', pdf_url || '', image_url || '', req.user.id, title_en || '', summary_en || '', explanation_en || '']
     );
     const [rows] = await pool.execute('SELECT * FROM publications WHERE id = ?', [result.insertId]);
     res.status(201).json(parseTags(rows[0]));
@@ -80,11 +80,11 @@ router.put('/:id', requireAuth, async (req, res) => {
       return res.status(403).json({ error: 'Accès refusé' });
     }
 
-    const { title, summary, explanation, code_snippet, code_language, tags, type, pdf_url, image_url } = req.body;
+    const { title, summary, explanation, code_snippet, code_language, tags, type, pdf_url, image_url, title_en, summary_en, explanation_en } = req.body;
     const tagsStr = Array.isArray(tags) ? tags.join(',') : (tags !== undefined ? tags : pub.tags);
 
     await pool.execute(
-      `UPDATE publications SET title=?, summary=?, explanation=?, code_snippet=?, code_language=?, tags=?, type=?, pdf_url=?, image_url=? WHERE id=?`,
+      `UPDATE publications SET title=?, summary=?, explanation=?, code_snippet=?, code_language=?, tags=?, type=?, pdf_url=?, image_url=?, title_en=?, summary_en=?, explanation_en=? WHERE id=?`,
       [
         title || pub.title,
         summary || pub.summary,
@@ -95,6 +95,9 @@ router.put('/:id', requireAuth, async (req, res) => {
         type || pub.type,
         pdf_url !== undefined ? pdf_url : pub.pdf_url,
         image_url !== undefined ? image_url : pub.image_url,
+        title_en !== undefined ? title_en : pub.title_en,
+        summary_en !== undefined ? summary_en : pub.summary_en,
+        explanation_en !== undefined ? explanation_en : pub.explanation_en,
         req.params.id
       ]
     );

@@ -41,7 +41,7 @@ router.get('/:id', async (req, res) => {
 
 // POST create — authenticated
 router.post('/', requireAuth, async (req, res) => {
-  const { title, content, image_url, published_at } = req.body;
+  const { title, content, image_url, published_at, title_en, content_en } = req.body;
   if (!title || !content) {
     return res.status(400).json({ error: 'Titre et contenu requis' });
   }
@@ -49,8 +49,8 @@ router.post('/', requireAuth, async (req, res) => {
     const pool = await getPool();
     const date = published_at || new Date().toISOString().slice(0, 19).replace('T', ' ');
     const [result] = await pool.execute(
-      'INSERT INTO news (title, content, image_url, published_at, author_id) VALUES (?, ?, ?, ?, ?)',
-      [title, content, image_url || '', date, req.user.id]
+      'INSERT INTO news (title, content, image_url, published_at, author_id, title_en, content_en) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [title, content, image_url || '', date, req.user.id, title_en || '', content_en || '']
     );
     const [rows] = await pool.execute('SELECT * FROM news WHERE id = ?', [result.insertId]);
     res.status(201).json(rows[0]);
@@ -72,14 +72,16 @@ router.put('/:id', requireAuth, async (req, res) => {
       return res.status(403).json({ error: 'Accès refusé' });
     }
 
-    const { title, content, image_url, published_at } = req.body;
+    const { title, content, image_url, published_at, title_en, content_en } = req.body;
     await pool.execute(
-      'UPDATE news SET title=?, content=?, image_url=?, published_at=? WHERE id=?',
+      'UPDATE news SET title=?, content=?, image_url=?, published_at=?, title_en=?, content_en=? WHERE id=?',
       [
         title || item.title,
         content !== undefined ? content : item.content,
         image_url !== undefined ? image_url : item.image_url,
         published_at || item.published_at,
+        title_en !== undefined ? title_en : item.title_en,
+        content_en !== undefined ? content_en : item.content_en,
         req.params.id,
       ]
     );
