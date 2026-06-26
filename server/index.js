@@ -6,6 +6,7 @@ const authRoutes = require('./auth');
 const publicationsRoutes = require('./publications');
 const usersRoutes = require('./users');
 const uploadsRoutes = require('./uploads');
+const newsRoutes = require('./news');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/publications', publicationsRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/uploads', uploadsRoutes);
+app.use('/api/news', newsRoutes);
 
 app.listen(PORT, () => {
   console.log(`Serveur EDEM démarré sur http://localhost:${PORT}`);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EDEM — Dashboard</title>
+  <title>EDEM — Actualités</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
@@ -12,9 +12,9 @@
   <div class="admin-layout">
     <aside class="sidebar">
       <div class="sidebar-logo">EDEM <span>Espace équipe</span></div>
-      <a href="/admin/dashboard.html" class="sidebar-link active">Publications</a>
+      <a href="/admin/dashboard.html" class="sidebar-link">Publications</a>
       <a href="/admin/new-publication.html" class="sidebar-link">Nouvelle publication</a>
-      <a href="/admin/news.html" class="sidebar-link">Actualités</a>
+      <a href="/admin/news.html" class="sidebar-link active">Actualités</a>
       <a href="/admin/new-news.html" class="sidebar-link">Nouvelle actualité</a>
       <div id="admin-links"></div>
       <div class="sidebar-bottom">
@@ -26,10 +26,10 @@
 
     <main class="admin-content">
       <div class="admin-header">
-        <h1 class="admin-title">Publications</h1>
-        <a href="/admin/new-publication.html" class="btn btn-primary">+ Nouvelle publication</a>
+        <h1 class="admin-title">Actualités</h1>
+        <a href="/admin/new-news.html" class="btn btn-primary">+ Nouvelle actualité</a>
       </div>
-      <div id="pub-list"><div class="loading">Chargement…</div></div>
+      <div id="news-list"><div class="loading">Chargement…</div></div>
     </main>
   </div>
 
@@ -44,26 +44,26 @@
     }
 
     async function load() {
-      const list = document.getElementById('pub-list');
+      const list = document.getElementById('news-list');
       try {
-        const res = await fetch('/api/publications');
-        const pubs = await res.json();
-        if (pubs.length === 0) {
-          list.innerHTML = `<div class="empty">Aucune publication. <a href="/admin/new-publication.html" style="color:var(--accent)">Créer la première →</a></div>`;
+        const res = await fetch('/api/news');
+        const items = await res.json();
+        if (items.length === 0) {
+          list.innerHTML = `<div class="empty">Aucune actualité. <a href="/admin/new-news.html" style="color:var(--accent)">Créer la première →</a></div>`;
           return;
         }
-        list.innerHTML = pubs.map(pub => {
-          const canEdit = pub.author_id === user.id || user.role === 'admin';
+        list.innerHTML = items.map(item => {
+          const canEdit = item.author_id === user.id || user.role === 'admin';
           return `
             <div class="admin-post-item">
               <div class="admin-post-info">
-                <div class="admin-post-title">${esc(pub.title)}</div>
-                <div class="admin-post-meta">${esc(pub.author_name)} · ${fmt(pub.created_at)} · <em>${pub.type}</em></div>
+                <div class="admin-post-title">${esc(item.title)}</div>
+                <div class="admin-post-meta">${esc(item.author_name)} · ${fmt(item.published_at)}</div>
               </div>
               <div class="admin-post-actions">
                 ${canEdit ? `
-                  <a href="/admin/new-publication.html?id=${pub.id}" class="btn btn-ghost btn-sm">Modifier</a>
-                  <button class="btn btn-danger btn-sm" onclick="del(${pub.id}, this)">Supprimer</button>
+                  <a href="/admin/new-news.html?id=${item.id}" class="btn btn-ghost btn-sm">Modifier</a>
+                  <button class="btn btn-danger btn-sm" onclick="del(${item.id}, this)">Supprimer</button>
                 ` : ''}
               </div>
             </div>`;
@@ -74,9 +74,9 @@
     }
 
     async function del(id, btn) {
-      if (!confirm('Supprimer cette publication ?')) return;
+      if (!confirm('Supprimer cette actualité ?')) return;
       btn.disabled = true;
-      const res = await fetch(`/api/publications/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      const res = await fetch(`/api/news/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       if (res.ok) load(); else btn.disabled = false;
     }
 

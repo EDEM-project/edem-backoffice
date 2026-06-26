@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -683,6 +683,272 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
       .reveal { opacity: 1; transform: none; }
     }
+
+    /* ── SECTION EYEBROW ── */
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal-600);
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── NEWS SECTION ── */
+    .news-section-bg {
+      background: var(--green-50);
+    }
+    .news-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 5rem 2.5rem;
+    }
+    .news-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      min-height: 200px;
+    }
+    @media (max-width: 1024px) {
+      .news-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .news-grid { grid-template-columns: 1fr; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* News Card */
+    .news-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 1.75rem;
+      border: 1px solid rgba(0,0,0,0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      position: relative;
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .news-card:hover {
+      border-color: var(--teal-500);
+      box-shadow: 0 8px 32px rgba(13,148,136,0.1);
+      transform: translateY(-3px);
+    }
+    .news-card:has(.news-card-link:focus-visible) {
+      box-shadow: 0 0 0 3px var(--teal-400);
+    }
+    .news-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .news-card-date {
+      font-size: 0.73rem;
+      color: rgba(28,25,23,0.45);
+    }
+    .news-card-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(28,25,23,0.25);
+      flex-shrink: 0;
+    }
+    .news-card-author {
+      font-size: 0.73rem;
+      color: rgba(28,25,23,0.55);
+      font-weight: 500;
+    }
+    .news-card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--stone-900);
+      letter-spacing: -0.015em;
+    }
+    .news-card-excerpt {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: rgba(28,25,23,0.6);
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .news-card-link {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--teal-600);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      margin-top: 0.25rem;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font-family: var(--font-body);
+    }
+    /* Stretch button to cover the whole card */
+    .news-card-link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+    }
+    .news-card-link:focus-visible { outline: none; }
+    .news-card-link svg { transition: transform var(--transition); }
+    .news-card:hover .news-card-link svg { transform: translateX(4px); }
+
+    /* News states */
+    .news-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      color: rgba(28,25,23,0.45);
+      font-size: 0.9rem;
+    }
+
+    /* ── NEWS MODAL ── */
+    .news-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(28,25,23,0.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .news-modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .news-modal {
+      background: var(--white);
+      border-radius: 20px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+      opacity: 0;
+      position: relative;
+    }
+    .news-modal-backdrop.open .news-modal {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    .news-modal-img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: 20px 20px 0 0;
+      display: block;
+    }
+    .news-modal-body {
+      padding: 2rem 2.25rem 2.5rem;
+    }
+    .news-modal-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .news-modal-date {
+      font-size: 0.75rem;
+      color: rgba(28,25,23,0.45);
+    }
+    .news-modal-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(28,25,23,0.25);
+      flex-shrink: 0;
+    }
+    .news-modal-author {
+      font-size: 0.75rem;
+      color: rgba(28,25,23,0.55);
+      font-weight: 500;
+    }
+    .news-modal-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: var(--stone-900);
+      margin-bottom: 1.25rem;
+    }
+    .news-modal-content {
+      font-size: 0.9375rem;
+      line-height: 1.8;
+      color: rgba(28,25,23,0.72);
+      white-space: pre-wrap;
+    }
+    .news-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--stone-900);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: background var(--transition);
+    }
+    .news-modal-close:hover { background: var(--white); }
+    @media (max-width: 640px) {
+      .news-modal-body { padding: 1.5rem 1.25rem 2rem; }
+      .news-modal-title { font-size: 1.2rem; }
+    }
+
+    /* Skeleton loader */
+    .skel {
+      background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 4px;
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .news-skel-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 1.75rem;
+      border: 1px solid rgba(0,0,0,0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
   </style>
 </head>
 <body>
@@ -693,7 +959,6 @@
   <header id="site-header" role="banner">
     <nav aria-label="Navigation principale">
       <a href="index.html" class="nav-logo" aria-label="EDEM – Accueil">
-        </div>
         <span class="nav-logo-text">EDEM</span>
       </a>
 
@@ -701,8 +966,8 @@
         <li><a href="#projet">Le projet</a></li>
         <li><a href="publications.html">Publications</a></li>
         <li><a href="equipe.html">Équipe</a></li>
+        <li><a href="#actualites">Actualités</a></li>
         <li><a href="contact.html">Contact</a></li>
-
       </ul>
 
       <div class="nav-actions">
@@ -788,6 +1053,60 @@
       </div>
     </section>
 
+    <!-- ── SECTION ACTUALITÉS ── -->
+    <div class="news-section-bg" id="actualites">
+      <section class="news-section" aria-labelledby="news-title">
+
+        <div class="news-header reveal">
+          <div>
+            <span class="section-eyebrow">Actualités</span>
+            <h2 id="news-title" class="section-title">
+              Les dernières nouvelles<br/>du <em>projet</em>
+            </h2>
+          </div>
+          <a href="publications.html" class="btn-primary" style="flex-shrink:0">
+            Toutes les publications
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+              <path d="M2.5 7.5H12.5M12.5 7.5L8 3M12.5 7.5L8 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="news-grid" id="news-grid" aria-live="polite" aria-label="Actualités récentes">
+          <div class="news-skel-card" aria-hidden="true">
+            <div class="skel" style="height:11px;width:45%"></div>
+            <div class="skel" style="height:20px;width:80%"></div>
+            <div class="skel" style="height:20px;width:65%"></div>
+            <div class="skel" style="height:13px;width:100%"></div>
+            <div class="skel" style="height:13px;width:90%"></div>
+            <div class="skel" style="height:13px;width:75%"></div>
+            <div class="skel" style="height:13px;width:40%;margin-top:.5rem"></div>
+          </div>
+          <div class="news-skel-card" aria-hidden="true">
+            <div class="skel" style="height:11px;width:35%"></div>
+            <div class="skel" style="height:20px;width:90%"></div>
+            <div class="skel" style="height:20px;width:50%"></div>
+            <div class="skel" style="height:13px;width:100%"></div>
+            <div class="skel" style="height:13px;width:85%"></div>
+            <div class="skel" style="height:13px;width:70%"></div>
+            <div class="skel" style="height:13px;width:40%;margin-top:.5rem"></div>
+          </div>
+          <div class="news-skel-card" aria-hidden="true">
+            <div class="skel" style="height:11px;width:55%"></div>
+            <div class="skel" style="height:20px;width:75%"></div>
+            <div class="skel" style="height:20px;width:60%"></div>
+            <div class="skel" style="height:13px;width:100%"></div>
+            <div class="skel" style="height:13px;width:80%"></div>
+            <div class="skel" style="height:13px;width:60%"></div>
+            <div class="skel" style="height:13px;width:40%;margin-top:.5rem"></div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <div class="section-divider"><hr /></div>
+
     <!-- ── SECTION RECHERCHE ── -->
     <section class="section" id="projet" aria-labelledby="recherche-title">
       <div class="content-block reveal">
@@ -795,6 +1114,7 @@
           <img src="img/researcherandfarmer.jpg" alt="Chercheurs travaillant sur des modèles d'IA agricole" width="480" height="320" loading="lazy" />
         </div>
         <div class="content-text">
+          <span class="section-eyebrow">Recherche</span>
           <h2 id="recherche-title" class="section-title">
             Une recherche pour<br/>l'intérêt de <em>l'humanité</em>
           </h2>
@@ -820,6 +1140,7 @@
           <img src="img/P1047759.JPG" alt="L'équipe de recherche du laboratoire ETIS" width="480" height="320" loading="lazy" />
         </div>
         <div class="content-text">
+          <span class="section-eyebrow">Équipe</span>
           <h2 id="equipe-title" class="section-title">
             Une équipe de chercheurs<br/><em>déterminée</em>
           </h2>
@@ -837,6 +1158,27 @@
     </section>
 
   </main>
+
+  <!-- ── NEWS MODAL ── -->
+  <div class="news-modal-backdrop" id="news-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="news-modal" id="news-modal">
+      <button class="news-modal-close" id="news-modal-close" aria-label="Fermer">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <img class="news-modal-img" id="modal-img" src="" alt="" style="display:none">
+      <div class="news-modal-body">
+        <div class="news-modal-meta">
+          <time class="news-modal-date" id="modal-date"></time>
+          <span class="news-modal-dot" aria-hidden="true"></span>
+          <span class="news-modal-author" id="modal-author"></span>
+        </div>
+        <h3 class="news-modal-title" id="modal-title"></h3>
+        <p class="news-modal-content" id="modal-content"></p>
+      </div>
+    </div>
+  </div>
 
   <!-- ══ FOOTER ══ -->
   <footer role="contentinfo">
@@ -939,6 +1281,94 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     revealEls.forEach(el => observer.observe(el));
+
+    // News modal logic
+    const backdrop = document.getElementById('news-modal-backdrop');
+    const modalClose = document.getElementById('news-modal-close');
+
+    function openModal(post) {
+      const date = new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR', {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+      document.getElementById('modal-date').textContent = date;
+      document.getElementById('modal-author').textContent = post.author_name || 'EDEM';
+      document.getElementById('modal-title').textContent = post.title;
+      document.getElementById('modal-content').textContent = (post.content || '').replace(/<[^>]*>/g, '');
+      const img = document.getElementById('modal-img');
+      if (post.image_url) {
+        img.src = post.image_url;
+        img.alt = post.title;
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      modalClose.focus();
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    // News section: fetch and render recent posts
+    async function loadNews() {
+      const grid = document.getElementById('news-grid');
+      try {
+        const res = await fetch('/api/news');
+        if (!res.ok) throw new Error('Erreur réseau');
+        const posts = await res.json();
+
+        if (!posts.length) {
+          grid.innerHTML = '<p class="news-empty">Aucune actualité pour le moment.</p>';
+          return;
+        }
+
+        const recent = posts.slice(0, 3);
+        grid.innerHTML = recent.map((post, i) => {
+          const date = new Date(post.published_at || post.created_at).toLocaleDateString('fr-FR', {
+            day: 'numeric', month: 'long', year: 'numeric'
+          });
+          const raw = (post.content || '').replace(/<[^>]*>/g, '');
+          const excerpt = raw.length > 180 ? raw.slice(0, 180).trimEnd() + '…' : raw;
+          const author = post.author_name || 'EDEM';
+          return `
+            <article class="news-card reveal" data-news-index="${i}">
+              <div class="news-card-meta">
+                <time class="news-card-date" datetime="${post.published_at || post.created_at}">${date}</time>
+                <span class="news-card-dot" aria-hidden="true"></span>
+                <span class="news-card-author">${author}</span>
+              </div>
+              <h3 class="news-card-title">${post.title}</h3>
+              <p class="news-card-excerpt">${excerpt}</p>
+              <button class="news-card-link" aria-label="Lire l'article : ${post.title}">
+                Lire la suite
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M2 7H12M12 7L7.5 2.5M12 7L7.5 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </article>`;
+        }).join('');
+
+        // Wire up click handlers to open modal
+        grid.querySelectorAll('.news-card').forEach((card) => {
+          const idx = parseInt(card.dataset.newsIndex, 10);
+          card.addEventListener('click', () => openModal(recent[idx]));
+        });
+
+        // Observe newly added reveal elements
+        grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      } catch {
+        grid.innerHTML = '<p class="news-empty" role="alert">Impossible de charger les actualités.</p>';
+      }
+    }
+    loadNews();
 
     // Newsletter submit feedback
     document.querySelector('.newsletter-form').addEventListener('submit', (e) => {

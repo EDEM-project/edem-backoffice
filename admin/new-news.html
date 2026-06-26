@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EDEM — Éditeur</title>
+  <title>EDEM — Actualité</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
@@ -13,9 +13,9 @@
     <aside class="sidebar">
       <div class="sidebar-logo">EDEM <span>Espace équipe</span></div>
       <a href="/admin/dashboard.html" class="sidebar-link">Publications</a>
-      <a href="/admin/new-publication.html" class="sidebar-link active">Nouvelle publication</a>
+      <a href="/admin/new-publication.html" class="sidebar-link">Nouvelle publication</a>
       <a href="/admin/news.html" class="sidebar-link">Actualités</a>
-      <a href="/admin/new-news.html" class="sidebar-link">Nouvelle actualité</a>
+      <a href="/admin/new-news.html" class="sidebar-link active">Nouvelle actualité</a>
       <div id="admin-links"></div>
       <div class="sidebar-bottom">
         <div style="font-size:13px;color:rgba(255,255,255,0.4);padding:0 12px;margin-bottom:10px" id="sidebar-user"></div>
@@ -26,59 +26,35 @@
 
     <main class="admin-content">
       <div class="admin-header">
-        <h1 class="admin-title" id="page-title">Nouvelle publication</h1>
-        <a href="/admin/dashboard.html" class="btn btn-ghost">Annuler</a>
+        <h1 class="admin-title" id="page-title">Nouvelle actualité</h1>
+        <a href="/admin/news.html" class="btn btn-ghost">Annuler</a>
       </div>
 
       <div style="max-width:720px;display:flex;flex-direction:column;gap:0">
 
         <div class="form-group">
           <label class="form-label">Titre *</label>
-          <input class="form-input" type="text" id="title" placeholder="Titre de la publication">
+          <input class="form-input" type="text" id="title" placeholder="Titre de l'actualité">
         </div>
 
         <div class="form-group">
-          <label class="form-label">Type</label>
-          <select class="form-input" id="type">
-            <option value="recherche">Recherche</option>
-            <option value="rapport">Rapport</option>
-            <option value="article">Article</option>
-          </select>
+          <label class="form-label">Date de publication</label>
+          <input class="form-input" type="date" id="published_at">
         </div>
 
         <div class="form-group">
-          <label class="form-label">Résumé * <span style="font-weight:400;color:var(--text-muted)">(affiché en avant, vulgarisé)</span></label>
-          <textarea class="form-textarea" id="summary" placeholder="Résumé accessible au grand public…" style="min-height:100px"></textarea>
+          <label class="form-label">Contenu * <span style="font-weight:400;color:var(--text-muted)">(séparer les paragraphes par une ligne vide)</span></label>
+          <textarea class="form-textarea" id="content" placeholder="Texte de l'actualité…" style="min-height:240px"></textarea>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Explication <span style="font-weight:400;color:var(--text-muted)">(corps de la publication, séparer les paragraphes par une ligne vide)</span></label>
-          <textarea class="form-textarea" id="explanation" placeholder="Explication détaillée…" style="min-height:200px"></textarea>
+          <label class="form-label">Image <span style="font-weight:400;color:var(--text-muted)">(URL ou upload ci-dessous)</span></label>
+          <input class="form-input" type="text" id="image_url" placeholder="/uploads/… ou https://…">
         </div>
 
         <div class="form-group">
-          <label class="form-label">Extrait de code <span style="font-weight:400;color:var(--text-muted)">(optionnel)</span></label>
-          <textarea class="form-textarea" id="code_snippet" placeholder="Collez votre code ici…" style="min-height:120px;font-family:monospace;font-size:13px"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Langage du code</label>
-          <input class="form-input" type="text" id="code_language" placeholder="Python, JavaScript, R…" value="Python">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Tags <span style="font-weight:400;color:var(--text-muted)">(séparés par des virgules)</span></label>
-          <input class="form-input" type="text" id="tags" placeholder="xAI, Deep Learning, Agritech">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Lien PDF <span style="font-weight:400;color:var(--text-muted)">(URL externe ou chemin /uploads/…)</span></label>
-          <input class="form-input" type="text" id="pdf_url" placeholder="https://… ou /uploads/fichier.pdf">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Upload PDF ou image</label>
-          <input type="file" id="file-upload" accept=".pdf,image/*" style="font-size:14px;color:var(--text-muted)">
+          <label class="form-label">Upload image</label>
+          <input type="file" id="file-upload" accept="image/*" style="font-size:14px;color:var(--text-muted)">
           <div id="upload-status" style="font-size:13px;color:var(--text-muted);margin-top:6px"></div>
         </div>
 
@@ -101,25 +77,25 @@
       document.getElementById('admin-links').innerHTML = `<a href="/admin/users.html" class="sidebar-link">Gérer les comptes</a>`;
     }
 
+    // Default date to today
+    document.getElementById('published_at').value = new Date().toISOString().slice(0, 10);
+
     const params = new URLSearchParams(window.location.search);
     const editId = params.get('id');
 
     if (editId) {
-      document.getElementById('page-title').textContent = 'Modifier la publication';
+      document.getElementById('page-title').textContent = 'Modifier l\'actualité';
       document.getElementById('submit-btn').textContent = 'Enregistrer';
-      fetch(`/api/publications/${editId}`).then(r => r.json()).then(pub => {
-        document.getElementById('title').value = pub.title || '';
-        document.getElementById('type').value = pub.type || 'recherche';
-        document.getElementById('summary').value = pub.summary || '';
-        document.getElementById('explanation').value = pub.explanation || '';
-        document.getElementById('code_snippet').value = pub.code_snippet || '';
-        document.getElementById('code_language').value = pub.code_language || 'Python';
-        document.getElementById('tags').value = Array.isArray(pub.tags) ? pub.tags.join(', ') : '';
-        document.getElementById('pdf_url').value = pub.pdf_url || '';
+      fetch(`/api/news/${editId}`).then(r => r.json()).then(item => {
+        document.getElementById('title').value = item.title || '';
+        document.getElementById('content').value = item.content || '';
+        document.getElementById('image_url').value = item.image_url || '';
+        if (item.published_at) {
+          document.getElementById('published_at').value = item.published_at.slice(0, 10);
+        }
       });
     }
 
-    // Upload fichier automatique au choix
     document.getElementById('file-upload').addEventListener('change', async function() {
       const file = this.files[0];
       if (!file) return;
@@ -130,9 +106,9 @@
       try {
         const res = await fetch('/api/uploads', { method: 'POST', headers: { 'Authorization': `Bearer ${token}` }, body: form });
         const data = await res.json();
-        if (res.ok) {
-          if (data.type === 'pdf') document.getElementById('pdf_url').value = data.url;
-          status.textContent = `✓ Fichier uploadé : ${data.url}`;
+        if (res.ok && data.type === 'image') {
+          document.getElementById('image_url').value = data.url;
+          status.textContent = `✓ Image uploadée : ${data.url}`;
         } else {
           status.textContent = data.error || 'Erreur upload.';
         }
@@ -145,10 +121,10 @@
       const btn = document.getElementById('submit-btn');
       const status = document.getElementById('save-status');
       const title = document.getElementById('title').value.trim();
-      const summary = document.getElementById('summary').value.trim();
+      const content = document.getElementById('content').value.trim();
 
-      if (!title || !summary) {
-        status.textContent = 'Le titre et le résumé sont requis.';
+      if (!title || !content) {
+        status.textContent = 'Le titre et le contenu sont requis.';
         status.style.color = '#c0392b';
         return;
       }
@@ -157,19 +133,16 @@
       status.textContent = 'Enregistrement…';
       status.style.color = 'var(--text-muted)';
 
+      const dateVal = document.getElementById('published_at').value;
       const body = {
         title,
-        summary,
-        explanation: document.getElementById('explanation').value.trim(),
-        code_snippet: document.getElementById('code_snippet').value.trim(),
-        code_language: document.getElementById('code_language').value.trim() || 'Python',
-        tags: document.getElementById('tags').value.split(',').map(t => t.trim()).filter(Boolean),
-        type: document.getElementById('type').value,
-        pdf_url: document.getElementById('pdf_url').value.trim(),
+        content,
+        image_url: document.getElementById('image_url').value.trim(),
+        published_at: dateVal ? dateVal + ' 00:00:00' : undefined,
       };
 
       try {
-        const url = editId ? `/api/publications/${editId}` : '/api/publications';
+        const url = editId ? `/api/news/${editId}` : '/api/news';
         const method = editId ? 'PUT' : 'POST';
         const res = await fetch(url, {
           method,
@@ -177,7 +150,7 @@
           body: JSON.stringify(body)
         });
         if (res.ok) {
-          window.location.href = '/admin/dashboard.html';
+          window.location.href = '/admin/news.html';
         } else {
           const data = await res.json();
           status.textContent = data.error || 'Erreur.';
