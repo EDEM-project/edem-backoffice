@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+  <title>EDEM – Contact</title>
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    .input-field {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      background: #fff;
+      border: 1px solid #d6d3d1;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-family: 'DM Sans', sans-serif;
+      color: #1c1917;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-field::placeholder { color: #a8a29e; }
+    .input-field:focus { border-color: #0d9488; box-shadow: 0 0 0 3px rgba(13,148,136,0.12); }
+    footer { background: #0f766e; color: #fff; padding: 3.5rem 0 2rem; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.15); margin-bottom: 2rem; }
+    .footer-brand-name { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .footer-brand-desc { font-size: 0.8rem; line-height: 1.65; color: rgba(255,255,255,0.65); }
+    .footer-nav-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+    .footer-nav-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; list-style: none; padding: 0; margin: 0; }
+    .footer-nav-links a { font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s; }
+    .footer-nav-links a:hover { color: #fff; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+    @media (max-width: 1024px) { .footer-top { grid-template-columns: 1fr; gap: 2rem; } }
+  </style>
+</head>
+<body class="bg-stone-100 min-h-screen flex flex-col">
+
+  <header id="site-header" role="banner" class="sticky top-0 z-[100] bg-[#6ee7b7]/80 border-b border-black/5 backdrop-blur-md transition-shadow duration-300">
+    <nav aria-label="Navigation principale" class="max-w-screen-xl mx-auto px-10 h-20 flex items-center justify-between gap-8">
+      <a href="index.html" class="flex items-center gap-[0.6rem] shrink-0 no-underline">
+        <span class="font-sans font-extrabold text-xl text-stone-900 tracking-[-0.02em]">EDEM</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-1 list-none" id="nav-links" role="list">
+        <li><a href="index.html#projet" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-projet">Le projet</a></li>
+        <li><a href="index.html#actualites" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-actualites">Actualités</a></li>
+        <li><a href="publications.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-publications">Publications</a></li>
+        <li><a href="equipe.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-equipe">Équipe</a></li>
+        <li><a href="contact.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-contact">Contact</a></li>
+      </ul>
+      <div class="flex items-center gap-4 shrink-0">
+        <a href="https://anr.fr/Projet-ANR-24-CE23-6449" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-[0.4rem] px-4 py-[0.55rem] bg-teal-700 text-white text-[0.8125rem] font-semibold rounded-[7px] no-underline hover:bg-teal-800 transition-all">
+          Fiche ANR
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="flex items-center gap-1 text-[0.75rem] font-medium">
+          <button data-lang="fr" onclick="setLang('fr')" class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded text-stone-900 font-bold text-[0.75rem]">FR</button>
+          <span class="text-black/30">|</span>
+          <button data-lang="en" onclick="setLang('en')" class="bg-transparent border-none cursor-pointer px-[0.3rem] py-[0.2rem] rounded text-black/45 text-[0.75rem]">EN</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-1 max-w-screen-xl mx-auto w-full px-6 md:px-8 py-10">
+
+    <!-- Page header -->
+    <div class="flex flex-col gap-2 mb-10">
+      <span class="text-xs font-semibold text-teal-600 uppercase tracking-widest">Contact</span>
+      <h1 class="text-3xl md:text-4xl font-bold text-stone-900 tracking-tight">Contactez-nous</h1>
+      <p class="text-stone-500 text-sm font-light max-w-xl leading-relaxed">
+        Une question sur le projet EDEM, une proposition de collaboration ou simplement envie d'en savoir plus ? Écrivez-nous.
+      </p>
+      <hr class="border-stone-300 mt-4">
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-10 items-start">
+
+      <!-- Contact form -->
+      <section class="flex-1 min-w-0" aria-labelledby="form-title">
+        <div class="bg-white rounded-xl border border-stone-200 p-8 flex flex-col gap-6">
+          <h2 id="form-title" class="text-lg font-semibold text-stone-900">Envoyer un message</h2>
+
+          <form id="contact-form" novalidate class="flex flex-col gap-5">
+
+            <div class="flex flex-col sm:flex-row gap-5">
+              <div class="flex flex-col gap-1.5 flex-1">
+                <label for="contact-name" class="text-xs font-semibold text-stone-600 uppercase tracking-wide">Nom complet</label>
+                <input type="text" id="contact-name" name="name" class="input-field" placeholder="Jean Dupont" required autocomplete="name" />
+                <span class="field-error text-xs text-red-500 hidden">Ce champ est requis.</span>
+              </div>
+              <div class="flex flex-col gap-1.5 flex-1">
+                <label for="contact-email" class="text-xs font-semibold text-stone-600 uppercase tracking-wide">Adresse e-mail</label>
+                <input type="email" id="contact-email" name="email" class="input-field" placeholder="jean@exemple.fr" required autocomplete="email" />
+                <span class="field-error text-xs text-red-500 hidden">Adresse e-mail invalide.</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <label for="contact-subject" class="text-xs font-semibold text-stone-600 uppercase tracking-wide">Objet</label>
+              <input type="text" id="contact-subject" name="subject" class="input-field" placeholder="Collaboration, question scientifique…" required />
+              <span class="field-error text-xs text-red-500 hidden">Ce champ est requis.</span>
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <label for="contact-message" class="text-xs font-semibold text-stone-600 uppercase tracking-wide">Message</label>
+              <textarea id="contact-message" name="message" rows="6" class="input-field resize-none" placeholder="Décrivez votre demande…" required></textarea>
+              <span class="field-error text-xs text-red-500 hidden">Ce champ est requis.</span>
+            </div>
+
+            <div id="form-success" class="hidden flex items-center gap-2 px-4 py-3 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800 font-medium">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Message envoyé. Nous vous répondrons dans les plus brefs délais.
+            </div>
+
+            <button type="submit" id="submit-btn"
+              class="self-start inline-flex items-center gap-2 px-6 py-[0.7rem] bg-teal-700 text-white text-sm font-semibold rounded-lg hover:bg-teal-800 transition-all hover:-translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-400 focus-visible:outline-offset-2">
+              Envoyer le message
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                <path d="M2.5 7.5H12.5M12.5 7.5L8 3M12.5 7.5L8 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+          </form>
+        </div>
+      </section>
+
+      <!-- Sidebar: contact info -->
+      <aside class="w-full lg:w-72 shrink-0 flex flex-col gap-5 lg:sticky lg:top-24">
+
+        <div class="bg-white rounded-lg border border-stone-200 p-5 flex flex-col gap-4">
+          <h2 class="text-sm font-semibold text-stone-900">Laboratoire ETIS</h2>
+          <div class="flex flex-col gap-3 text-xs text-stone-500 font-light leading-relaxed">
+            <div class="flex gap-3 items-start">
+              <svg class="w-4 h-4 shrink-0 text-teal-600 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0z"/>
+              </svg>
+              <span>CY Cergy Paris Université<br/>95000 Cergy, France</span>
+            </div>
+            <div class="flex gap-3 items-start">
+              <svg class="w-4 h-4 shrink-0 text-teal-600 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/>
+              </svg>
+              <a href="mailto:contact@etis-lab.fr" class="text-teal-600 hover:text-teal-700 transition-colors no-underline">contact@etis-lab.fr</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg border border-stone-200 p-5 flex flex-col gap-3">
+          <h2 class="text-sm font-semibold text-stone-900">Partenaires du projet</h2>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-green-100 rounded-full text-xs text-stone-700 font-medium">ANR</span>
+            <span class="px-3 py-1 bg-green-100 rounded-full text-xs text-stone-700 font-medium">ETIS</span>
+            <span class="px-3 py-1 bg-green-100 rounded-full text-xs text-stone-700 font-medium">CY Cergy</span>
+            <span class="px-3 py-1 bg-green-100 rounded-full text-xs text-stone-700 font-medium">ENSEA</span>
+          </div>
+        </div>
+
+        <div class="bg-teal-700 rounded-lg p-5 flex flex-col gap-2">
+          <h2 class="text-sm font-semibold text-white">Rejoindre le projet</h2>
+          <p class="text-white/70 text-xs leading-relaxed">Vous êtes chercheur ou doctorant intéressé par l'explicabilité des IA agricoles ? Contactez-nous pour explorer des opportunités de collaboration.</p>
+          <a href="equipe.html" class="mt-1 self-start text-xs font-semibold text-teal-200 hover:text-white transition-colors no-underline">
+            Voir l'équipe →
+          </a>
+        </div>
+
+      </aside>
+    </div>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-brand-name">EDEM</div>
+          <p class="footer-brand-desc" data-i18n-html="footer-brand-desc">
+            Expliquer les IA Agricoles.<br/>
+            Un projet ANR porté par le laboratoire ETIS,<br/>CY Cergy Paris Université &amp; ENSEA.
+          </p>
+        </div>
+        <div class="footer-nav">
+          <p class="footer-nav-title">Navigation</p>
+          <ul class="footer-nav-links" role="list">
+            <li><a href="index.html#projet" data-i18n="nav-projet">Le projet</a></li>
+            <li><a href="index.html#actualites" data-i18n="nav-actualites">Actualités</a></li>
+            <li><a href="publications.html" data-i18n="nav-publications">Publications</a></li>
+            <li><a href="equipe.html" data-i18n="nav-equipe">Équipe</a></li>
+            <li><a href="contact.html" data-i18n="nav-contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 EDEM · Laboratoire ETIS · CY Cergy Paris Université</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/i18n.js"></script>
+  <script>
+    const form = document.getElementById('contact-form');
+    const successBox = document.getElementById('form-success');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      form.querySelectorAll('[required]').forEach(field => {
+        const err = field.nextElementSibling;
+        const empty = !field.value.trim();
+        const badEmail = field.type === 'email' && field.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value.trim());
+        if (empty || badEmail) {
+          field.style.borderColor = '#ef4444';
+          if (err) err.classList.remove('hidden');
+          valid = false;
+        } else {
+          field.style.borderColor = '';
+          if (err) err.classList.add('hidden');
+        }
+      });
+
+      if (!valid) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours…';
+
+      setTimeout(() => {
+        form.reset();
+        successBox.classList.remove('hidden');
+        successBox.style.display = 'flex';
+        submitBtn.style.display = 'none';
+      }, 800);
+    });
+
+    form.querySelectorAll('[required]').forEach(field => {
+      field.addEventListener('input', () => {
+        field.style.borderColor = '';
+        const err = field.nextElementSibling;
+        if (err) err.classList.add('hidden');
+      });
+    });
+  </script>
+
+</body>
+</html>
