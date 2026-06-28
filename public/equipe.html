@@ -11,6 +11,17 @@
     body { font-family: 'DM Sans', sans-serif; }
     .researcher-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
     .researcher-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
+    footer { background: #0f766e; color: #fff; padding: 3.5rem 0 2rem; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.15); margin-bottom: 2rem; }
+    .footer-brand-name { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .footer-brand-desc { font-size: 0.8rem; line-height: 1.65; color: rgba(255,255,255,0.65); }
+    .footer-nav-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+    .footer-nav-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; list-style: none; padding: 0; margin: 0; }
+    .footer-nav-links a { font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s; }
+    .footer-nav-links a:hover { color: #fff; }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+    @media (max-width: 1024px) { .footer-top { grid-template-columns: 1fr; gap: 2rem; } }
   </style>
 </head>
 <body class="bg-stone-100 min-h-screen flex flex-col">
@@ -20,8 +31,9 @@
       <a href="index.html" class="flex items-center gap-[0.6rem] shrink-0 no-underline">
         <span class="font-sans font-extrabold text-xl text-stone-900 tracking-[-0.02em]">EDEM</span>
       </a>
-      <ul class="hidden md:flex items-center gap-1 list-none" role="list">
+      <ul class="hidden md:flex items-center gap-1 list-none" id="nav-links" role="list">
         <li><a href="index.html#projet" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-projet">Le projet</a></li>
+        <li><a href="index.html#actualites" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-actualites">Actualités</a></li>
         <li><a href="publications.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-publications">Publications</a></li>
         <li><a href="equipe.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-equipe">Équipe</a></li>
         <li><a href="contact.html" class="block px-[0.85rem] py-2 text-sm text-stone-800 no-underline rounded-[6px] hover:bg-black/5 transition-all" data-i18n="nav-contact">Contact</a></li>
@@ -79,24 +91,29 @@
     </div>
   </main>
 
-  <footer class="bg-teal-600 mt-10">
-    <div class="max-w-screen-xl mx-auto px-8 py-12 grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
-      <div class="flex flex-col gap-6"><span class="text-white text-2xl font-bold tracking-tight">EDEM</span></div>
-      <nav class="flex flex-col gap-3 pt-1">
-        <a href="#" class="text-white/80 text-sm font-medium hover:text-white transition-colors">Mentions légales</a>
-        <a href="equipe.html" class="text-white/80 text-sm font-medium hover:text-white transition-colors" data-i18n="nav-equipe">Équipe</a>
-      </nav>
-      <div class="flex flex-col gap-4">
-        <h3 class="text-white text-lg font-semibold" data-i18n="footer-rester">Rester informé</h3>
-        <div class="flex gap-2">
-          <input type="email" placeholder="Votre email" class="flex-1 min-w-0 h-11 px-4 bg-transparent border border-white/50 rounded text-white placeholder-white/50 text-sm focus:outline-none focus:border-white transition-colors"/>
-          <button class="px-5 h-11 bg-white rounded text-teal-700 text-sm font-semibold hover:bg-green-50 transition-colors" data-i18n="btn-envoyer">Envoyer</button>
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-brand-name">EDEM</div>
+          <p class="footer-brand-desc" data-i18n-html="footer-brand-desc">
+            Expliquer les IA Agricoles.<br/>
+            Un projet ANR porté par le laboratoire ETIS,<br/>CY Cergy Paris Université &amp; ENSEA.
+          </p>
+        </div>
+        <div class="footer-nav">
+          <p class="footer-nav-title">Navigation</p>
+          <ul class="footer-nav-links" role="list">
+            <li><a href="index.html#projet" data-i18n="nav-projet">Le projet</a></li>
+            <li><a href="index.html#actualites" data-i18n="nav-actualites">Actualités</a></li>
+            <li><a href="publications.html" data-i18n="nav-publications">Publications</a></li>
+            <li><a href="equipe.html" data-i18n="nav-equipe">Équipe</a></li>
+            <li><a href="contact.html" data-i18n="nav-contact">Contact</a></li>
+          </ul>
         </div>
       </div>
-    </div>
-    <div class="border-t border-white/20">
-      <div class="max-w-screen-xl mx-auto px-8 py-4">
-        <p class="text-white/40 text-xs">© 2026 EDEM – Projet ANR. Tous droits réservés.</p>
+      <div class="footer-bottom">
+        <span>© 2026 EDEM · Laboratoire ETIS · CY Cergy Paris Université</span>
       </div>
     </div>
   </footer>
