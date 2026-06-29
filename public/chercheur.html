@@ -6,7 +6,22 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
-  <title>EDEM – Chercheur</title>
+  <title>EDEM – Profil Chercheur</title>
+  <meta name="description" content="Profil d'un chercheur du projet EDEM sur l'explicabilité des modèles d'IA agricoles. Laboratoire ETIS, CY Cergy Paris Université." />
+  <meta name="author" content="Laboratoire ETIS – CY Cergy Paris Université" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph (updated dynamically) -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="EDEM" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:title" content="EDEM – Profil Chercheur" />
+  <meta property="og:description" content="Chercheur du projet EDEM sur l'IA agricole explicable." />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="EDEM – Profil Chercheur" />
+  <meta name="twitter:description" content="Chercheur du projet EDEM sur l'IA agricole explicable." />
   <style>
     body { font-family: 'DM Sans', sans-serif; }
     footer { background: #0f766e; color: #fff; padding: 3.5rem 0 2rem; }
@@ -210,7 +225,18 @@
         const allPubs = await resPubs.json();
         _userPubs = allPubs.filter(p => p.author_id === _u.id);
 
-        document.title = `EDEM – ${_u.name}`;
+        document.title = `EDEM – ${_u.name} | Chercheur`;
+        const desc = _u.bio ? _u.bio.slice(0, 155).trimEnd() + '…' : `Profil de ${_u.name}, chercheur du projet EDEM sur l'IA agricole explicable.`;
+        document.querySelector('meta[name="description"]').setAttribute('content', desc);
+        document.querySelector('meta[property="og:title"]').setAttribute('content', `EDEM – ${_u.name}`);
+        document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
+        document.querySelector('meta[name="twitter:title"]').setAttribute('content', `EDEM – ${_u.name}`);
+        document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
+        if (_u.photo_url) {
+          let ogImg = document.querySelector('meta[property="og:image"]');
+          if (!ogImg) { ogImg = document.createElement('meta'); ogImg.setAttribute('property', 'og:image'); document.head.appendChild(ogImg); }
+          ogImg.setAttribute('content', _u.photo_url);
+        }
         renderProfile();
       } catch {
         main.innerHTML = `<p class="text-stone-400">Impossible de charger ce profil.</p>`;
